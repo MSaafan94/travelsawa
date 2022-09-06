@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <report
+            string="Accommodation"
+            id="report_accommodation"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_accommodation"
+            file="sales_extra_fields.report_accommodation"
+            print_report_name="'Accommodation - %s' % (object.name)"
+        />
+     <report
+            string="Flight"
+            id="report_flight"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_flight"
+            file="sales_extra_fields.report_flight"
+            print_report_name="'Flight - %s' % (object.name)"
+        />
+     <report
+            string="Visa"
+            id="report_visa"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_visa"
+            file="sales_extra_fields.report_visa"
+            print_report_name="'Visa - %s' % (object.name)"
+        />
+     <report
+            string="Medical Insurance"
+            id="report_medical"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_medical"
+            file="sales_extra_fields.report_medical"
+            print_report_name="'Medical - %s' % (object.name)"
+        />
+     <report
+            string="Vaccination"
+            id="report_vaccination"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_vaccination"
+            file="sales_extra_fields.report_vaccination"
+            print_report_name="'Vaccination - %s' % (object.name)"
+        />
+     <report
+            string="Program"
+            id="report_program"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_program"
+            file="sales_extra_fields.report_program"
+            print_report_name="'Program - %s' % (object.name)"
+        />
+     <report
+            string="Transfer"
+            id="report_transfer"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="sales_extra_fields.report_transfer"
+            file="sales_extra_fields.report_transfer"
+            print_report_name="'Transfer - %s' % (object.name)"
+        />
+</odoo>
