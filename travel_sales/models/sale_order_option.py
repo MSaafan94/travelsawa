@@ -70,7 +70,7 @@ class SaleOrder(models.Model):
     @api.depends('payment_count')
     def get_payments(self):
         account_payment = [(5, 0, 0,)]
-        payments = self.env['account.payment'].search([('state', '=', 'posted'), ('sale_id', '=', self.id), ('partner_id', '=', self.partner_id.id)])
+        payments = self.env['account.payment'].search([('state', 'in', ['posted', 'locked']), ('sale_id', '=', self.id), ('partner_id', '=', self.partner_id.id)])
 
         if payments:
             for line in payments:

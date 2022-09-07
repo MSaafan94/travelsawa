@@ -1,7 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
+# from odoo import models, fields, api, _
+# from odoo.exceptions import UserError, ValidationError
+from copy import deepcopy
+import logging
+import time
+from datetime import date
+from collections import OrderedDict, defaultdict
+from odoo import api, fields, models, _
+from odoo.osv import expression
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
+from odoo.tools.misc import formatLang, format_date
+from odoo.tools import float_is_zero, float_compare
+from odoo.tools.safe_eval import safe_eval
+from odoo.addons import decimal_precision as dp
+from lxml import etree
 
 class account_payment(models.Model):
     _inherit = "account.payment"
@@ -28,3 +41,10 @@ class account_payment(models.Model):
         if any(len(record.invoice_ids) != 1 for record in self):
             # For multiple invoices, there is account.register.payments wizard
             raise UserError(_("This method should only be called to process a single invoice's payment."))
+
+    @api.multi
+    def post(self, invoice=False):
+        if not self.env.user.has_group('account.group_account_manager') and self.payment_type == 'inbound':
+            raise UserError(_('please head to the accounting team to confirm it for you'))
+        super(account_payment, self).post()
+
