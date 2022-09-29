@@ -66,12 +66,14 @@ class SaleOrder(models.Model):
     total_due = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Due", store=True)
     payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id',)
     test = fields.Integer(related="payment_count", compute='get_payments')
+    # payment_type = fields.Selection(related="payment_type", compute='get_payments')
 
     @api.depends('payment_count')
     def get_payments(self):
+        print(self.delivery_count)
         account_payment = [(5, 0, 0,)]
-        payments = self.env['account.payment'].search([('state', 'in', ['posted', 'locked']), ('sale_id', '=', self.id), ('partner_id', '=', self.partner_id.id)])
-
+        payments = self.env['account.payment'].search([('state', 'in', ['posted', 'locked']), ('sale_id', '=', self.id),
+                                                       ('partner_id', '=', self.partner_id.id)])
         if payments:
             for line in payments:
                 account_payment.append((0, 0, {
@@ -79,6 +81,7 @@ class SaleOrder(models.Model):
                     'customer': line.partner_id.name,
                     'paid_on': line.payment_date,
                     'payment_date': line.payment_date,
+                    'payment_type':line.payment_type,
                     'journal_id': line.journal_id,
                     'name': line.name,
                     'state': line.state,
@@ -117,8 +120,12 @@ class SaleOrder(models.Model):
     def _compute_total_paid_amounts(self):
         for line in self.payment_quotation:
             if line.is_added:
-                self.total_payments += line.payment_amount
-                self.total_due = self.amount_total - self.total_payments
+                if line.payment_type == 'outbound':
+                    self.total_payments -= line.payment_amount
+                    self.total_due = self.amount_total - self.total_payments
+                else:
+                    self.total_payments += line.payment_amount
+                    self.total_due = self.amount_total - self.total_payments
         # for line in self.balance:
         #     if line.add:
         #         self.total_payments += line.amount
@@ -163,9 +170,8 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_set_draft(self):
-
         return self.write({
-            'state': 'draft',
+            'state': 'update',
             'signature': False,
             'signed_by': False,
         })
@@ -256,6 +262,7 @@ class Payments(models.Model):
         [('draft', 'draft'), ("posted", 'posted'), ("canceled", 'canceled'), ("reconciled", 'reconciled'),
          ('sent', 'sent')])
     is_added = fields.Boolean(string='Add', track_visibility='always', default=True)
+    payment_type = fields.Selection([('inbound', 'Inbound'), ("outbound", 'Outbound')])
     # test = fields.Monetary()
 
     # @api.multi
