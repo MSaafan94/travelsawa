@@ -26,5 +26,4 @@
         'views/account_invoice.xml',
         'wizard/transfer_salesperson.xml',
     ],
-
 }

@@ -44,13 +44,13 @@
                         </button>
                 </xpath>
                 <xpath expr="//field[@name='state']" position="replace">
-                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,sent,sale,expired"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,sent,update,sale,expired"/>
                 </xpath>
                 <xpath expr="//header" position="inside">
                     <button name="action_waiting_list" states="draft" string="Waiting List" class="brn-primary" type="object"/>
                 </xpath>
                 <xpath expr="//button[@name='action_confirm']" position="replace">
-                    <button name="action_confirm" id="action_confirm" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent','waiting'])]}"/>
+                    <button name="action_confirm" id="action_confirm" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent','waiting','update'])]}"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']//tree/field[@name='discount']" position="replace">
                     <field name="discount" invisible="1"/>
@@ -70,7 +70,21 @@
                     <attribute name="options">{'no_create_edit': True,'no_create': True, 'no_quick_create':
                         True,'no_open':True}
                     </attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
+                    </attribute>
                 </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+                     <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
+                    </attribute>
+                </xpath>
+
+
+<!--                <xpath expr="//field[@name='sale_order_template_id']" position="attributes">-->
+<!--                  -->
+<!--                </xpath>-->
+
+
+
                 <xpath expr="//page[@name='other_information']//group[@name='sales_person']//field[@name='analytic_account_id']" position="attributes">
                      <attribute name="invisible">1</attribute>
                 </xpath>
@@ -105,6 +119,10 @@
                     <field name="analytic_account_id"/>
                     <field name="cut_of_date"/>
                     <field name="roommate_name"/>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                     <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
+                    </attribute>
                 </xpath>
                 <xpath expr="//page[@name='other_information']" position="after">
                     <page string="Attachments" name="attachments">

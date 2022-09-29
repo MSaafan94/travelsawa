@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
 
     sale_order_template_id = fields.Many2one('sale.order.template', string='Trip Reference', track_visibility='always')
     total_num = fields.Integer(compute='total_name_of_persons')
-    purchase = fields.Integer(compute='_purchase',string='Purchase', copy=False)
+    purchase = fields.Integer(compute='_purchase', string='Purchase', copy=False)
     res = fields.Many2one('res.partner', track_visibility='always')
     partner_age = fields.Selection(string='Age Type', related='partner_id.age_type', readonly=False, store=True)
 
@@ -70,6 +70,7 @@ class SaleOrder(models.Model):
         ('draft', 'Initial Booking'),
         ('waiting', 'Waiting List'),
         ('sent', 'Quotation Sent'),
+        ('update', 'Update'),
         ('sale', 'Sales Order'),
         ('done', 'Locked'),
         ('cancel', 'Cancelled'),
