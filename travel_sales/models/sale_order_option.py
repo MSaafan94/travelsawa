@@ -148,7 +148,7 @@ class SaleOrder(models.Model):
 
     def transfer_optional_products(self):
         transfers_products = []
-        if self.state not in ['draft', 'sent']:
+        if self.state not in ['draft', 'sent', 'update']:
             raise UserError(_('You cannot add options to a confirmed order.'))
         for line in self.sale_order_option_ids:
             if line.transfer == True:

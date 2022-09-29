@@ -7,12 +7,12 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
-                          <attribute name="required">True</attribute>
-                </xpath>
-                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
-                          <attribute name="required">True</attribute>
-                </xpath>
+<!--                <xpath expr="//field[@name='sale_order_template_id']" position="attributes">-->
+<!--                          <attribute name="required">True</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='analytic_account_id']" position="attributes">-->
+<!--                          <attribute name="required">True</attribute>-->
+<!--                </xpath>-->
                 <xpath expr="//field[@name='roommate_name']" position="after">
                     <field name="individual" invisible="1"/>
 

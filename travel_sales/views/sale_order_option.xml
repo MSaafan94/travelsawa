@@ -131,6 +131,10 @@
                         <button name="transfer_optional_products" type="object" string="Transfer" class="oe_highlight"/>
                     </group>
                 </xpath>
+                <xpath expr="//page/field[@name='sale_order_option_ids']" position="attributes">
+                  <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
+                  </attribute>
+                </xpath>
                 <xpath expr="//field[@name='amount_total']" position="after">
                     <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                         <label for="total_payments"/>
