@@ -56,15 +56,7 @@ class ResPartner(models.Model):
                               help='The internal user in charge of this contact.', required=True,
                               default=lambda self: self.env.user)
 
-    @api.multi
-    @api.onchange('whatsapp_num')
-    def _check_whats(self):
-        logging.info("Change whatsapp_num++++++++++")
-        partners = self.env['res.partner'].search([])
-        for partner in partners:
-            if self.whatsapp_num:
-                if self.whatsapp_num == partner.whatsapp_num:
-                    raise UserError("whatsapp_num number is already in used.")
+    
     @api.multi
     @api.onchange('phone')
     def _check_phone(self):
