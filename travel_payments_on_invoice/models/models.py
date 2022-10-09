@@ -18,11 +18,18 @@ class PaymentsOnInvoice(models.Model):
         return action
 
     def _compute_payment_count_on_bill(self):
-        self.payment_counts_on_bill = self.env['account.payment'].search_count(
-            ['|', ('communication', '=', str(self.move_id.name)), ('partner_id', '=', self.partner_id.id)])
+        if self.reference:
+            self.payment_counts_on_bill = self.env['account.payment'].search_count(
+                ['|', ('communication', '=', str(self.move_id.name)), ('communication', '=', self.reference)])
+        else:
+            self.payment_counts_on_bill = self.env['account.payment'].search_count(
+                [('communication', '=', str(self.move_id.name))])
 
     def payment_actions_on_bill(self):
         action = self.env['ir.actions.act_window'].for_xml_id('account', 'action_account_payments')
-        action['domain'] = ['|', ('communication', '=', str(self.move_id.name)),
-                            ('partner_id', '=', self.partner_id.id)]
+        if self.reference:
+            action['domain'] = ['|', ('communication', '=', str(self.move_id.name)),
+                                ('communication', '=', self.reference)]
+        else:
+            action['domain'] = [('communication', '=', str(self.move_id.name))]
         return action
