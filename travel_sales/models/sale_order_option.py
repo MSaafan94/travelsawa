@@ -65,7 +65,7 @@ class SaleOrder(models.Model):
     total_payments = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Paid",store=True )
     total_due = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Due", store=True)
     payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id',)
-    test = fields.Integer(related="payment_count", compute='get_payments')
+    # test = fields.Integer(related="payment_count", compute='get_payments')
     # payment_type = fields.Selection(related="payment_type", compute='get_payments')
 
     @api.depends('payment_count')
@@ -151,7 +151,9 @@ class SaleOrder(models.Model):
         if self.state not in ['draft', 'sent', 'update']:
             raise UserError(_('You cannot add options to a confirmed order.'))
         for line in self.sale_order_option_ids:
-            if line.transfer == True:
+            if line.transfer == True and line.quantity < self.available:
+                raise UserError(_('no available products'))
+            else:
                 sale_order_line = {
                     'product_id': line.product_id.id,
                     'name': line.name,

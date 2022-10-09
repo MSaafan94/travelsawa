@@ -35,9 +35,9 @@ class CrmLead(models.Model):
     owner = fields.Char("Owner")
     created_at = fields.Datetime("Created at")
 
-    _sql_constraints = [
-        ('phone_uniq', 'unique (phone)', "Phone Number already exists !"),
-    ]
+    # _sql_constraints = [
+    #     ('phone_uniq', 'unique (phone)', "Phone Number already exists !"),
+    # ]
 
     # _sql_constraints = [
     #     ('whats_uniq', 'unique (whatsapp_num)', "whatsapp num Number already exists !"),

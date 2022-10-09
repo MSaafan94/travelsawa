@@ -543,7 +543,7 @@ class SaleOrderTemplateOption(models.Model):
             if rec.product_id:
                 # product_tmpl_id = rec.product_id.product_tmpl_id
                 # product_variant_ids = product_tmpl_id.with_prefetch().product_variant_ids
-                sale_order_domain = [('product_id', '=', rec.product_id.id)]
+                sale_order_domain = [('product_id', '=', rec.product_id.id), ('state', '!=', (['draft', 'waiting', 'expired']))]
                 sale_order_line_ids = self.env['sale.order.line'].sudo().search(sale_order_domain).filtered(
                     lambda x: x.order_id.sale_order_template_id.id == rec.sale_order_template_id.id)
                 rec.stock = sum(sale_order_line_ids.mapped('product_uom_qty'))

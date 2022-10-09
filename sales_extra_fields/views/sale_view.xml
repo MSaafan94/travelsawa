@@ -14,6 +14,7 @@
                   <field name="purchase"/>
                 </xpath>
                 <xpath expr="//tree//field[@name='state']" position="before">
+                        <field name="analytic_account_id" groups="sales_team.group_sale_manager"/>
                         <field name="adult" sum="adult" groups="sales_team.group_sale_manager"/>
                         <field name="child" sum="child" groups="sales_team.group_sale_manager"/>
                         <field name="infant" sum="infant" groups="sales_team.group_sale_manager"/>
