@@ -151,9 +151,7 @@ class SaleOrder(models.Model):
         if self.state not in ['draft', 'sent', 'update']:
             raise UserError(_('You cannot add options to a confirmed order.'))
         for line in self.sale_order_option_ids:
-            if line.transfer == True and line.quantity < self.available:
-                raise UserError(_('no available products'))
-            else:
+            if line.transfer == True:
                 sale_order_line = {
                     'product_id': line.product_id.id,
                     'name': line.name,
