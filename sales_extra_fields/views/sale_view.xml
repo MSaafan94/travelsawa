@@ -29,7 +29,6 @@
                 <xpath expr="//tree//field[@name='origin']" position="after">
                     <field name="invoice_count"/>
                 </xpath>
-
             </field>
 
         </record>

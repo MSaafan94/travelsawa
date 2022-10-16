@@ -354,7 +354,6 @@ class SaleOrderTemplate(models.Model):
     _inherit = "sale.order.template"
     _description = "Quotation Template"
 
-
     destination = fields.Many2one('model.destination', string="Hotel")
     # hotel = fields.Many2many('model.hotel', string="Hotel")
     duration = fields.Integer('Duration', readonly=True, store=True)
@@ -528,12 +527,12 @@ class SaleOrderTemplateOption(models.Model):
     sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of sale quote lines.",
                               default=10)
     hotel = fields.Many2one('model.hotel', string="Hotel")
-    inventory = fields.Integer(string="Inventory")
+    inventory = fields.Integer(string="Inventory", default=150)
     stock = fields.Integer(string="Stock", compute="_compute_stock")
     available = fields.Integer(string="Available", compute="_compute_available")
+    # nameOrder = fields.Char(default=' ')
     analytic_tag_ids = fields.Many2one('account.analytic.tag', 'Analytic Tags')
-
-
+    template_name = fields.Char(related='sale_order_template_id.name')
 
     @api.depends('product_id', 'inventory', 'stock')
     def _compute_stock(self):

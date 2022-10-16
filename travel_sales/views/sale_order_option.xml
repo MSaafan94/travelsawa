@@ -99,11 +99,13 @@
 
               </xpath>
 
-<!--                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="before">-->
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="before">
 <!--                    <field name="cost"/>-->
-<!--                    <field name="available"/>-->
+                    <field name="available"/>
+<!--                    <field name="name" string="name"/>-->
+
 <!--                    <field name="selling"/>-->
-<!--                </xpath>-->
+                </xpath>
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -111,8 +113,9 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='sale_order_option_ids']//field[@name='price_unit']" position="after">
-                    <field name="hotel"/>
-                    <field name="inventory"/>
+<!--                    <field name="hotel"/>-->
+                    <field name="available"/>
+<!--                    <field name="sale_order_template_id"/>-->
                     <field name="transfer"/>
                 </xpath>
                 <xpath expr="//button[@name='action_done']" position="after">

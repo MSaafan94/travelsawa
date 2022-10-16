@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'crm', 'hr', 'sales_team', 'stock', 'sales_extra_fields', 'account', 'stock_account', 'contacts', 'travel_sales'],
+    'depends': ['base', 'sale', 'crm', 'hr', 'sales_team', 'stock', 'sales_extra_fields', 'account', 'stock_account', 'contacts', 'travel_sales', 'mail'],
 
     # always loaded
     'data': [

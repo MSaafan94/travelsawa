@@ -56,6 +56,18 @@ class SaleOrderOption(models.Model):
     hotel = fields.Many2one('model.hotel', string="Hotel")
     inventory = fields.Integer(string="Inventory")
     analytic_tag_id = fields.Many2one('account.analytic.tag', 'Analytic Tags')
+    available = fields.Integer(string="Available", compute="_compute_availablee")
+
+    @api.depends('product_id', 'quantity')
+    def _compute_availablee(self):
+        for rec in self:
+            if rec.product_id:
+                rec.available = 0
+                if rec.product_id:
+                    sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
+                        [('product_id', '=', rec.product_id.id), ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
+                    if sale_order_template_option_id:
+                        rec.available = sale_order_template_option_id.available
 
 
 class SaleOrder(models.Model):
@@ -67,6 +79,15 @@ class SaleOrder(models.Model):
     payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id',)
     # test = fields.Integer(related="payment_count", compute='get_payments')
     # payment_type = fields.Selection(related="payment_type", compute='get_payments')
+
+    @api.multi
+    def action_confirm(self):
+        for line in self.order_line:
+            if line.product_uom_qty > line.available:
+                print()
+                raise UserError("Ordered Quantity of {} is greater than available quantity !".format(line.name))
+        res = super(SaleOrder, self).action_confirm()
+        return res
 
     @api.depends('payment_count')
     def get_payments(self):
@@ -151,7 +172,8 @@ class SaleOrder(models.Model):
         if self.state not in ['draft', 'sent', 'update']:
             raise UserError(_('You cannot add options to a confirmed order.'))
         for line in self.sale_order_option_ids:
-            if line.transfer == True:
+            print(line.available)
+            if line.transfer == True and line.quantity <= line.available:
                 sale_order_line = {
                     'product_id': line.product_id.id,
                     'name': line.name,
@@ -164,6 +186,9 @@ class SaleOrder(models.Model):
                 if line.analytic_tag_id:
                     sale_order_line['analytic_tag_ids'] = [(4, line.analytic_tag_id.id)]
                 transfers_products.append((0, 0, sale_order_line))
+            elif line.transfer == True and line.quantity > line.available:
+                raise UserError(_('You cannot add {} as it is unavailable quantity.'.format(line.name)))
+
         self.order_line = transfers_products
         for line in self.sale_order_option_ids:
             line.transfer = False
@@ -238,11 +263,12 @@ class SaleOrderLine(models.Model):
     @api.depends('product_id', 'product_uom_qty')
     def _compute_available(self):
         for rec in self:
+            print(self.order_id.sale_order_template_id.name)
             if rec.product_id:
                 rec.available = 0
                 if rec.product_id:
                     sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
-                        [('product_id', '=', rec.product_id.id)], limit=1)
+                        [('product_id', '=', rec.product_id.id), ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
                     if sale_order_template_option_id:
                         rec.available = sale_order_template_option_id.available
 

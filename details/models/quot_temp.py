@@ -3,34 +3,36 @@ from odoo.exceptions import ValidationError
 
 
 class QuotationTemplateInherit(models.Model):
-    _inherit = 'sale.order.template'
-    quot_accommodation = fields.One2many('accommodation.main', 'quot_id', string='accommodation')
-    quot_accommodation_inv = fields.One2many('accommodation.main', 'quot_id', string='accommodation inv')
-    quot_accommodation1 = fields.One2many('accommodation.city1', 'quot_id', string='accommodation1')
-    quot_accommodation2 = fields.One2many('accommodation.city2', 'quot_id', string='accommodation2')
-    quot_accommodation3 = fields.One2many('accommodation.city3', 'quot_id', string='accommodation3')
-    quot_accommodation4 = fields.One2many('accommodation.city4', 'quot_id', string='accommodation4')
-    quot_accommodation5 = fields.One2many('accommodation.city5', 'quot_id', string='accommodation5')
-    quot_accommodation6 = fields.One2many('accommodation.city6', 'quot_id', string='accommodation6')
-    flight_international = fields.One2many('quot.flight.international', 'quot_id', string='flight_international')
-    flight_domestic = fields.One2many('quot.flight.domestic', 'quot_id', string='flight_domestic')
-    visa = fields.One2many('quot.visa', 'quot_id', string='visa')
-    vaccination = fields.One2many('quot.vaccination', 'quot_id', string='vaccination')
-    program = fields.One2many('quot.program', 'quot_id', string='program')
+    _name = 'sale.order.template'
+    _inherit = ['sale.order.template', 'mail.thread']
+    quot_accommodation = fields.One2many('accommodation.main', 'quot_id', string='accommodation', copy=True)
+    quot_accommodation_inv = fields.One2many('accommodation.main', 'quot_id', string='accommodation inv', copy=True)
+    quot_accommodation1 = fields.One2many('accommodation.city1', 'quot_id', string='accommodation1', copy=True)
+    quot_accommodation2 = fields.One2many('accommodation.city2', 'quot_id', string='accommodation2', copy=True)
+    quot_accommodation3 = fields.One2many('accommodation.city3', 'quot_id', string='accommodation3', copy=True)
+    quot_accommodation4 = fields.One2many('accommodation.city4', 'quot_id', string='accommodation4', copy=True)
+    quot_accommodation5 = fields.One2many('accommodation.city5', 'quot_id', string='accommodation5', copy=True)
+    quot_accommodation6 = fields.One2many('accommodation.city6', 'quot_id', string='accommodation6', copy=True)
+    flight_international = fields.One2many('quot.flight.international', 'quot_id', string='flight_international',
+                                           copy=True)
+    flight_domestic = fields.One2many('quot.flight.domestic', 'quot_id', string='flight_domestic', copy=True)
+    visa = fields.One2many('quot.visa', 'quot_id', string='visa', copy=True)
+    vaccination = fields.One2many('quot.vaccination', 'quot_id', string='vaccination', copy=True)
+    program = fields.One2many('quot.program', 'quot_id', string='program', copy=True)
     sale_orders = fields.One2many('sale.order', 'sale_order_template_id', string='sale orders')
     # individual = fields.Boolean(string='Individual', track_visibility="always")
     operation = fields.Boolean(string='Operation', track_visibility="always")
 
-    @api.multi
-    def unlink(self):
-        if not self.env.user.has_group('sales_extra_fields.group_manager_quotation_template'):
-            raise ValidationError("Sorry you can not delete")
+    # @api.multi
+    # def unlink(self):
+    #     if not self.env.user.has_group('sales_extra_fields.group_manager_quotation_template'):
+    #         raise ValidationError("Sorry you can not delete")
 
 
 class QuotAccommodation(models.Model):
     _name = 'accommodation.main'
 
-    hotel = fields.Many2many('model.hotel', string='Hotel')
+    hotel = fields.Many2many('model.hotel', string='Hotel', copy=True)
     check_in = fields.Date(string="Check In")
     check_out = fields.Date(string="Check out")
     room_view = fields.Many2one('room.view', string='Room View')
@@ -159,6 +161,7 @@ class FlightDomestic(models.Model):
     attachment = fields.Binary(string='Attachment')
     quot_id = fields.Many2one('sale.order.template')
     individual = fields.Boolean(related='quot_id.individual')
+
 
 
 class QuotVisa(models.Model):
