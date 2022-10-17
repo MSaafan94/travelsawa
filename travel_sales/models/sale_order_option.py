@@ -57,7 +57,7 @@ class SaleOrderOption(models.Model):
     inventory = fields.Integer(string="Inventory")
     analytic_tag_id = fields.Many2one('account.analytic.tag', 'Analytic Tags')
     available = fields.Integer(string="Available", compute="_compute_availablee")
-
+    @api.one
     @api.depends('product_id', 'quantity')
     def _compute_availablee(self):
         for rec in self:
@@ -263,7 +263,7 @@ class SaleOrderLine(models.Model):
     @api.depends('product_id', 'product_uom_qty')
     def _compute_available(self):
         for rec in self:
-            print(self.order_id.sale_order_template_id.name)
+            # print(self.order_id.sale_order_template_id.name)
             if rec.product_id:
                 rec.available = 0
                 if rec.product_id:

@@ -40,6 +40,44 @@ class SaleOrder(models.Model):
     res = fields.Many2one('res.partner', track_visibility='always')
     partner_age = fields.Selection(string='Age Type', related='partner_id.age_type', readonly=False, store=True)
 
+    @api.one
+    def generate(self):
+        if self.analytic_account_id:
+            raise UserError(_("you can not generate because analytic account already has value"))
+        else:
+            value = {
+                '1' :'Jan',
+                '2' :'Feb',
+                '3' :'Mar',
+                '4' :'Apr',
+                '5' :'May',
+                '6' :'Jun',
+                '7' :'Jul',
+                '8' :'Aug',
+                '9' :'Sept',
+                '10' :'Oct',
+                '11' :'Nov',
+                '12' :'Dec',
+            }
+            month = value.get(self.month)
+            year = self.sale_order_template_id.name
+            search_analytics = self.env['account.analytic.account'].search([('name', 'like', '{}/{}'.format(month, year[-2:]))])
+            serial = '001'
+            for ids in search_analytics:
+                print(ids.name)
+
+            print(year)
+
+            values = {
+                'name': '{}/{}/{}'.format(serial, month,year[-2:]),
+                'partner_id': self.partner_id.id,
+                'group_id': self.env['account.analytic.group'].search([('name', '=', 'Individual Trips')], limit=1),
+                'currency_id': self.env['res.currency'].search([('name', '=', 'EGP')]),
+            }
+            self.env['account.analytic.account'].sudo().create(values)
+            self.analytic_account_id = self.env['account.analytic.account'].search([('name', '=', '{}/{}/{}'.format(serial, month, year[-2:]))])
+
+
     def get_partner(self):
         print(self.partner_id.age_type)
         self.partner_age = self.partner_id.age_type
@@ -354,20 +392,20 @@ class SaleOrderTemplate(models.Model):
     _inherit = "sale.order.template"
     _description = "Quotation Template"
 
-    destination = fields.Many2one('model.destination', string="Hotel")
+    destination = fields.Many2one('model.destination', string="Hotel",track_visibility="always")
     # hotel = fields.Many2many('model.hotel', string="Hotel")
-    duration = fields.Integer('Duration', readonly=True, store=True)
-    hotel = fields.Many2many("model.hotel", string='Hotel')
-    starttime = fields.Datetime(string='Order Date', required=True, index=True, default=fields.Datetime.now)
-    endtime = fields.Datetime(string='Order Date', required=True, index=True, default=fields.Datetime.now)
+    duration = fields.Integer('Duration', readonly=True, store=True,track_visibility="always")
+    hotel = fields.Many2many("model.hotel", string='Hotel',track_visibility="always")
+    starttime = fields.Datetime(string='Order Date', required=True, index=True, default=fields.Datetime.now,track_visibility="always")
+    endtime = fields.Datetime(string='Order Date', required=True, index=True, default=fields.Datetime.now,track_visibility="always")
     need_room_mate = fields.Selection([('yes', 'Yes'),
-                                       ('no', 'No')], string="Need Room Mate", default='yes')
-    no_of_accompanying_persons = fields.Integer("No of Accompanying Persons")
-    name_of_persons = fields.Text("Names of Persons")
-    attachment_ids = fields.One2many('quotation.attachments', 'quo_tem_id', "Attachments")
-    pricelist_id = fields.Many2one('product.pricelist', "Pricelist")
-    warehouse_id = fields.Many2one('stock.warehouse', "Warehouse")
-    arranged = fields.Boolean(string="Arranged")
+                                       ('no', 'No')], string="Need Room Mate", default='yes',track_visibility="always")
+    no_of_accompanying_persons = fields.Integer("No of Accompanying Persons",track_visibility="always")
+    name_of_persons = fields.Text("Names of Persons",track_visibility="always")
+    attachment_ids = fields.One2many('quotation.attachments', 'quo_tem_id', "Attachments",track_visibility="always")
+    pricelist_id = fields.Many2one('product.pricelist', "Pricelist",track_visibility="always")
+    warehouse_id = fields.Many2one('stock.warehouse', "Warehouse",track_visibility="always")
+    arranged = fields.Boolean(string="Arranged",track_visibility="always")
     month = fields.Selection([
         ('1', 'January'),
         ('2', 'February'),
@@ -381,12 +419,12 @@ class SaleOrderTemplate(models.Model):
         ('10', 'October'),
         ('11', "November"),
         ('12', 'December'),
-    ], 'Month', store=True
+    ], 'Month', store=True, track_visibility="always"
     )
-    individual = fields.Boolean(string='Individual')
-    cut_of_date = fields.Date('Cut Of Date')
-    analytic_account = fields.Many2one('account.analytic.account', string="Analytic Account")
-    analytic_tag_ids = fields.Many2one('account.analytic.tag', 'Analytic Tags')
+    individual = fields.Boolean(string='Individual',track_visibility="always")
+    cut_of_date = fields.Date('Cut Of Date',track_visibility="always")
+    analytic_account = fields.Many2one('account.analytic.account', string="Analytic Account",track_visibility="always")
+    analytic_tag_ids = fields.Many2one('account.analytic.tag', 'Analytic Tags',track_visibility="always")
 
     @api.onchange('endtime')
     def get_duration(self):
