@@ -28,11 +28,15 @@
                     <field name="adult" attrs="{'invisible': [('individual', '=', True)]}"/>
                     <field name="child" attrs="{'invisible': [('individual', '=', True)]}"/>
                     <field name="infant" attrs="{'invisible': [('individual', '=', True)]}"/>
-                                        <label for="analytic_account_id"/>
+                    <label for="analytic_account_id"/>
                     <div class="o_row">
                             <field name="analytic_account_id"/>
                             <button name="generate" string="Generate" type="object"  attrs="{'invisible': [('individual', '=', False)]}" />
                     </div>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                     <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
+                    </attribute>
                 </xpath>
 
                 <xpath expr="//page[@name='attachments']" position="after">

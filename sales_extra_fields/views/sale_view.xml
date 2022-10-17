@@ -116,18 +116,11 @@
 <!--                    <field name="adult"/>-->
                     <field name="total_num" invisible="1"/>
                     <field name="cancellation_policy"/>
-<!--                    <label for="analytic_account_id"/>-->
-<!--                    <div class="o_row">-->
-<!--                            <field name="analytic_account_id"/>-->
-<!--                            <button name="generate" string="Generate" type="object"  attrs="{'invisible': [('individual', '=', False)]}" />-->
-<!--                    </div>-->
+
                     <field name="cut_of_date"/>
                     <field name="roommate_name"/>
                 </xpath>
-                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
-                     <attribute name="attrs">{'readonly':[('state','not in',('draft','sent','update'))]}
-                    </attribute>
-                </xpath>
+
                 <xpath expr="//page[@name='other_information']" position="after">
                     <page string="Attachments" name="attachments">
                         <field name="attachment_ids" nolabel="1">

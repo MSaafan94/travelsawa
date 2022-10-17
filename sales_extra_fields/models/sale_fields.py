@@ -42,7 +42,6 @@ class SaleOrder(models.Model):
 
     @api.one
     def generate(self):
-
         months = {
             '1':'JAN',
             '2':'FEB',
@@ -57,6 +56,8 @@ class SaleOrder(models.Model):
             '11' :'NOV',
             '12' :'DEC',
         }
+        if self.analytic_account_id:
+            raise UserError(_("Analytic account already has value"))
         month = months.get(self.month)
         year = self.sale_order_template_id.name
         if not month and not self.sale_order_template_id:
@@ -69,12 +70,14 @@ class SaleOrder(models.Model):
             serial = search_analytics[len(search_analytics)-1].name.partition('/')[0]
             if serial:
                 if int(serial)<9 :
-                    print(int(serial))
+                    # print(int(serial))
                     serial = '000{}'.format(int(serial)+1)
-                    print(serial)
+                    # print(serial)
                 elif int(serial)<99:
+                    # print(int(serial))
                     serial = '00{}'.format(int(serial)+1)
                 elif int(serial)<1000:
+                    # print(int(serial))
                     serial = '0{}'.format(int(serial)+1)
                 else:
                     serial = '{}'.format(int(serial)+1)
@@ -83,6 +86,7 @@ class SaleOrder(models.Model):
             'name': '{}/{}/{}'.format(serial, month, year[-2:]),
             'partner_id': self.partner_id.id,
             'group_id': group[0].id,
+            # 'code': self.name
         }
         self.env['account.analytic.account'].sudo().create(values)
         self.analytic_account_id = self.env['account.analytic.account'].search([('name', '=', '{}/{}/{}'.format(serial, month, year[-2:])), ('partner_id', '=', self.partner_id.name)], limit=1)

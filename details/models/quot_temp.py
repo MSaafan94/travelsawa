@@ -20,14 +20,13 @@ class QuotationTemplateInherit(models.Model):
     vaccination = fields.One2many('quot.vaccination', 'quot_id', string='vaccination', copy=True)
     program = fields.One2many('quot.program', 'quot_id', string='program', copy=True)
     sale_orders = fields.One2many('sale.order', 'sale_order_template_id', string='sale orders')
-    # individual = fields.Boolean(string='Individual', track_visibility="always")
     operation = fields.Boolean(string='Operation', track_visibility="always")
 
 
-    # @api.multi
-    # def unlink(self):
-    #     if not self.env.user.has_group('sales_extra_fields.group_manager_quotation_template'):
-    #         raise ValidationError("Sorry you can not delete")
+    @api.multi
+    def unlink(self):
+        if not self.env.user.has_group('sales_extra_fields.group_manager_quotation_template'):
+            raise ValidationError("Sorry you can not delete")
 
 
 class QuotAccommodation(models.Model):
