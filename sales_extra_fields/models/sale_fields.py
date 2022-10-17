@@ -42,40 +42,50 @@ class SaleOrder(models.Model):
 
     @api.one
     def generate(self):
-        if self.analytic_account_id:
-            raise UserError(_("you can not generate because analytic account already has value"))
-        else:
-            value = {
-                '1' :'Jan',
-                '2' :'Feb',
-                '3' :'Mar',
-                '4' :'Apr',
-                '5' :'May',
-                '6' :'Jun',
-                '7' :'Jul',
-                '8' :'Aug',
-                '9' :'Sept',
-                '10' :'Oct',
-                '11' :'Nov',
-                '12' :'Dec',
-            }
-            month = value.get(self.month)
-            year = self.sale_order_template_id.name
-            search_analytics = self.env['account.analytic.account'].search([('name', 'like', '{}/{}'.format(month, year[-2:]))])
-            serial = '001'
-            for ids in search_analytics:
-                print(ids.name)
 
-            print(year)
+        months = {
+            '1':'JAN',
+            '2':'FEB',
+            '3' :'MAR',
+            '4' :'APR',
+            '5' :'MAY',
+            '6' :'JUN',
+            '7' :'JUL',
+            '8' :'AUG',
+            '9' :'SEPT',
+            '10' :'OCT',
+            '11' :'NOV',
+            '12' :'DEC',
+        }
+        month = months.get(self.month)
+        year = self.sale_order_template_id.name
+        if not month and not self.sale_order_template_id:
+            raise UserError(_("Month or trip reference not assigned in quotation template"))
 
-            values = {
-                'name': '{}/{}/{}'.format(serial, month,year[-2:]),
-                'partner_id': self.partner_id.id,
-                'group_id': self.env['account.analytic.group'].search([('name', '=', 'Individual Trips')], limit=1),
-                'currency_id': self.env['res.currency'].search([('name', '=', 'EGP')]),
-            }
-            self.env['account.analytic.account'].sudo().create(values)
-            self.analytic_account_id = self.env['account.analytic.account'].search([('name', '=', '{}/{}/{}'.format(serial, month, year[-2:]))])
+        search_analytics = self.env['account.analytic.account'].search([('name', 'like', '{}/{}'.format(month, year[-2:]))])
+        group = self.env['account.analytic.group'].search([('name', '=', 'Individual Trips')], limit=1),
+        serial = '0001'
+        if search_analytics:
+            serial = search_analytics[len(search_analytics)-1].name.partition('/')[0]
+            if serial:
+                if int(serial)<9 :
+                    print(int(serial))
+                    serial = '000{}'.format(int(serial)+1)
+                    print(serial)
+                elif int(serial)<99:
+                    serial = '00{}'.format(int(serial)+1)
+                elif int(serial)<1000:
+                    serial = '0{}'.format(int(serial)+1)
+                else:
+                    serial = '{}'.format(int(serial)+1)
+
+        values = {
+            'name': '{}/{}/{}'.format(serial, month, year[-2:]),
+            'partner_id': self.partner_id.id,
+            'group_id': group[0].id,
+        }
+        self.env['account.analytic.account'].sudo().create(values)
+        self.analytic_account_id = self.env['account.analytic.account'].search([('name', '=', '{}/{}/{}'.format(serial, month, year[-2:])), ('partner_id', '=', self.partner_id.name)], limit=1)
 
 
     def get_partner(self):
