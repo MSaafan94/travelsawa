@@ -66,7 +66,8 @@ class SaleOrderOption(models.Model):
                 rec.available = 0
                 if rec.product_id:
                     sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
-                        [('product_id', '=', rec.product_id.id), ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
+                        [('product_id', '=', rec.product_id.id),
+                         ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
                     if sale_order_template_option_id:
                         rec.available = sale_order_template_option_id.available
 
@@ -75,18 +76,20 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     payment_count = fields.Integer(compute='_compute_payment_count', copy=False)
-    total_payments = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Paid",store=True )
+    total_payments = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Paid", store=True)
     total_due = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Due", store=True)
-    payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id',)
+    payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id', )
+
     # test = fields.Integer(related="payment_count", compute='get_payments')
     # payment_type = fields.Selection(related="payment_type", compute='get_payments')
 
     @api.multi
     def action_confirm(self):
         for line in self.order_line:
-            if line.product_uom_qty > line.available:
-                print()
-                raise UserError("Ordered Quantity of {} is greater than available quantity !".format(line.name))
+            if self.state == 'draft' and line.product_uom_qty > line.available:
+                raise UserError("Ordered Quantity of [{}] is greater than available quantity !".format(line.name))
+            elif self.state == 'update' and line.available < 0:
+                raise UserError("Ordered Quantity of [{}] is greater than available quantity !".format(line.name))
         res = super(SaleOrder, self).action_confirm()
         return res
 
@@ -103,7 +106,7 @@ class SaleOrder(models.Model):
                     'customer': line.partner_id.name,
                     'paid_on': line.payment_date,
                     'payment_date': line.payment_date,
-                    'payment_type':line.payment_type,
+                    'payment_type': line.payment_type,
                     'journal_id': line.journal_id,
                     'name': line.name,
                     'state': line.state,
@@ -173,7 +176,6 @@ class SaleOrder(models.Model):
         if self.state not in ['draft', 'sent', 'update']:
             raise UserError(_('You cannot add options to a confirmed order.'))
         for line in self.sale_order_option_ids:
-            print(line.available)
             if line.transfer == True and line.quantity <= line.available:
                 sale_order_line = {
                     'product_id': line.product_id.id,
@@ -196,6 +198,9 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_set_draft(self):
+        for line in self.order_line:
+            line.reserved = line.product_uom_qty
+
         return self.write({
             'state': 'update',
             'signature': False,
@@ -232,7 +237,7 @@ class SaleOrder(models.Model):
             'target': 'new',
         }
 
-    def create_payment(self, journal_id, amount, date,):
+    def create_payment(self, journal_id, amount, date, ):
         for rec in self:
             values = {
                 'payment_type': 'inbound',
@@ -260,6 +265,7 @@ class SaleOrderLine(models.Model):
     location_id = fields.Many2one('stock.location', "Location")
     cost = fields.Float('Cost', related="product_id.standard_price", store=True, readonly=False)
     available = fields.Integer(string="Available", compute="_compute_available")
+    reserved = fields.Float(compute='')
 
     @api.one
     @api.depends('product_id', 'product_uom_qty')
@@ -270,7 +276,8 @@ class SaleOrderLine(models.Model):
                 rec.available = 0
                 if rec.product_id:
                     sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
-                        [('product_id', '=', rec.product_id.id), ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
+                        [('product_id', '=', rec.product_id.id),
+                         ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
                     if sale_order_template_option_id:
                         rec.available = sale_order_template_option_id.available
 

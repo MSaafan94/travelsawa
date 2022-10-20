@@ -104,7 +104,7 @@
 <!--                    <field name="cost"/>-->
                     <field name="available"/>
 <!--                    <field name="name" string="name"/>-->
-
+                    <field name="reserved" invisible="1"/>
 <!--                    <field name="selling"/>-->
                 </xpath>
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
