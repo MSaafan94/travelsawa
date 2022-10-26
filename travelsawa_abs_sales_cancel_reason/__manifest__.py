@@ -30,7 +30,7 @@
 """,
     'version': '12.0.0.1',
     'depends': ['base','sale_management','sales_team'],
-    'data': ['security/ir.model.access.csv','wizard/add_sale_cancel_reason_view.xml','views/quotation_cancel_reason.xml','views/sale_order_view.xml'
+    'data': ['security/ir.model.access.csv','views/cancel_reason.xml','wizard/add_sale_cancel_reason_view.xml','views/quotation_cancel_reason.xml','views/sale_order_view.xml'
            ],
     'images': ['static/description/banner.png'],
     'installable': True,

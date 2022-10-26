@@ -7,8 +7,8 @@
 	<field name="arch" type="xml">
 	    <form string="Add Quoation Cancel Reason">
 		    <group>
-		        <field name="quota_cancel_reason_id"/>
-		        <field name="status_paid_cancel_id"/>
+		        <field name="quota_cancel_reason_id" options="{'no_create_edit': True, 'no_create': True}"/>
+		        <field name="status_paid_cancel_id" options="{'no_create_edit': True, 'no_create': True}"/>
 		    </group>
 		    <footer> 
 			    <button string='Cancel Quotation' name='cancel_quotation' type='object' class='btn-primary' />

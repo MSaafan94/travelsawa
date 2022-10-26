@@ -9,7 +9,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     service_type = fields.Many2one('service.type', "Service Type")
-    whatsapp_num = fields.Char("WhatsApp Number")
+    whatsapp_num = fields.Char("WhatsApp Number",required=True)
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
@@ -56,15 +56,16 @@ class ResPartner(models.Model):
                               help='The internal user in charge of this contact.', required=True,
                               default=lambda self: self.env.user)
 
-    # @api.multi
-    # @api.onchange('whatsapp_num')
-    # def _check_whats(self):
-    #     logging.info("Change whatsapp_num++++++++++")
-    #     partners = self.env['res.partner'].search([])
-    #     for partner in partners:
-    #         if self.whatsapp_num:
-    #             if self.whatsapp_num == partner.whatsapp_num:
-    #                 raise UserError("whatsapp_num number is already in used.")
+    @api.multi
+    @api.onchange('whatsapp_num')
+    def _check_whats(self):
+        logging.info("Change whatsapp_num++++")
+        partners = self.env['res.partner'].search([])
+        for partner in partners:
+            if self.whatsapp_num:
+                if self.whatsapp_num == partner.whatsapp_num or len(self.whatsapp_num) < 11:
+                    raise UserError("whatsapp_num number is already in used.")
+
 
     @api.multi
     @api.onchange('phone')
@@ -83,7 +84,7 @@ class ResPartner(models.Model):
         partners = self.env['res.partner'].search([])
         for partner in partners:
             if self.mobile:
-                if self.mobile == partner.mobile:
+                if self.mobile == partner.mobile or len(self.mobile) < 11:
                     raise UserError("Mobile number is already in used.")
 
     def get_transfer_wizard(self):

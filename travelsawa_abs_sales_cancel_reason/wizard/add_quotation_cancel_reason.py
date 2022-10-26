@@ -22,10 +22,12 @@
 from odoo import api,fields,models,_
 
 class AddQuotationCancelReason(models.TransientModel):
-    _name="add.quotation.reason"
+    _name = "add.quotation.reason"
  
     quota_cancel_reason_id = fields.Many2one("quotation.cancel.reason",string= "Quotation Cancellation Reason", required =True, help="This field display reason of quotation cancellation")
     status_paid_cancel_id = fields.Many2one("status.paid.cancel", string= "Status Paid", required= False)
+    # status_paid_cancel_id = fields.Selection([('yes', 'Yes'), ('no', 'No')])
+
 
     # def inbox_message(self):
     #     """
