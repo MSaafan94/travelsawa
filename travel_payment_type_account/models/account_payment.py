@@ -12,6 +12,7 @@ class account_move_line(models.Model):
     partner_id_account = fields.Many2one('account.account', string='Partner' , )
     is_account = fields.Boolean(string='Account' , default=False)
 
+
 class account_payment(models.Model):
     _inherit = 'account.payment'
 
@@ -21,10 +22,19 @@ class account_payment(models.Model):
     temp = fields.Boolean(string='emp' , compute='get_account' , default=False)
     internal_cons = fields.Boolean(compute='comp_internal' , default=False)
     analytic_account = fields.Many2one(comodel_name="account.analytic.account", string="Cost Center", required=False, )
-
     property_account_receivable_id  = fields.Many2one('account.account',related='partner_id.property_account_receivable_id',
                                                       readonly=False,store=True)
     property_account_payable_id  = fields.Many2one('account.account',related='partner_id.property_account_payable_id',readonly=False, store=True)
+    payment_amount_change = fields.Monetary(compute='negative_payment', string='Payment amount')
+    # payment_amount_change = fields.Monetary()
+
+    @api.one
+    @api.depends('amount')
+    def negative_payment(self):
+        if self.amount and self.payment_type == 'outbound':
+            self.payment_amount_change = -abs(self.amount)
+        else:
+            self.payment_amount_change = self.amount
 
     def _create_payment_entry(self, amount):
         """ Create a journal entry corresponding to a payment, if the payment references invoice(s) they are reconciled.

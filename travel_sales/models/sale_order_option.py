@@ -54,9 +54,9 @@ class SaleOrderOption(models.Model):
 
     transfer = fields.Boolean("Transfer", default=False)
     hotel = fields.Many2one('model.hotel', string="Hotel")
-    inventory = fields.Integer(string="Inventory")
+    inventory = fields.Float(string="Inventory")
     analytic_tag_id = fields.Many2one('account.analytic.tag', 'Analytic Tags')
-    available = fields.Integer(string="Available", compute="_compute_availablee")
+    available = fields.Float(string="Available", compute="_compute_availablee")
 
     @api.one
     @api.depends('product_id', 'quantity')
@@ -79,6 +79,11 @@ class SaleOrder(models.Model):
     total_payments = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Paid", store=True)
     total_due = fields.Monetary(compute='_compute_total_paid_amounts', string="Total Due", store=True)
     payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id', )
+    extra_money = fields.Float()
+
+    # @api.onchange('extra_money')
+    # def changeTotal(self):
+    #     self.total_payments += self.extra_money
 
     # test = fields.Integer(related="payment_count", compute='get_payments')
     # payment_type = fields.Selection(related="payment_type", compute='get_payments')
@@ -112,7 +117,12 @@ class SaleOrder(models.Model):
                     'state': line.state,
                 }))
             self.payment_quotation = account_payment
+
             # return self.payment_quotation
+        # print(self.extra_money)
+        # print('-----------------')
+        self.total_payments += self.extra_money
+        # print(self.total_payments)
         return self.payment_quotation
 
     def auto_cancel_sale_order(self):
@@ -121,6 +131,7 @@ class SaleOrder(models.Model):
             sale_order_ids = sale_order.search([('state', '=', 'draft'), ('validity_date', '<', str(datetime.now()))])
             for sale_order in sale_order_ids:
                 sale_order.write({'state': 'expired'})
+
         except:
             return "internal error"
 
@@ -151,6 +162,7 @@ class SaleOrder(models.Model):
                 else:
                     self.total_payments += line.payment_amount
                     self.total_due = self.amount_total - self.total_payments
+
         # for line in self.balance:
         #     if line.add:
         #         self.total_payments += line.amount
@@ -264,8 +276,8 @@ class SaleOrderLine(models.Model):
 
     location_id = fields.Many2one('stock.location', "Location")
     cost = fields.Float('Cost', related="product_id.standard_price", store=True, readonly=False)
-    available = fields.Integer(string="Available", compute="_compute_available")
-    reserved = fields.Float(compute='')
+    available = fields.Float(string="Available", compute="_compute_available")
+    reserved = fields.Float()
 
     @api.one
     @api.depends('product_id', 'product_uom_qty')
@@ -294,7 +306,8 @@ class Payments(models.Model):
     payment_amount = fields.Monetary()
     payment_quotation_id = fields.Many2one('sale.order')
     state = fields.Selection(
-        [('draft', 'draft'), ("posted", 'posted'), ("canceled", 'canceled'), ("reconciled", 'reconciled'),
+        [('draft', 'draft'), ("posted", 'posted'), ("canceled", 'canceled'), ('locked', 'Locked'),
+         ("reconciled", 'reconciled'),
          ('sent', 'sent')])
     is_added = fields.Boolean(string='Add', track_visibility='always', default=True)
     payment_type = fields.Selection([('inbound', 'Inbound'), ("outbound", 'Outbound')])

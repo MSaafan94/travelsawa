@@ -15,6 +15,7 @@
 <!--                </xpath>-->
                 <xpath expr="//field[@name='roommate_name']" position="after">
                     <field name="individual" invisible="1"/>
+                    <field name="due_date" invisible="1"/>
 
                 </xpath>
                 <xpath expr="//field[@name='payment_term_id']" position="after">

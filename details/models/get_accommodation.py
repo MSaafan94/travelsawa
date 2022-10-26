@@ -1,8 +1,10 @@
 from odoo import models, fields, api, _
+from datetime import datetime
 
 
 class SaleOrrder(models.Model):
     _inherit = "sale.order"
+    due_date = fields.Date()
 
 
     @api.multi
@@ -35,6 +37,7 @@ class SaleOrrder(models.Model):
                 'meal_plan': self.env['meal.plan'].search([('id', '=', meal_plan)], limit=1),
                 'hotel_name': self.sale_order_template_id.quot_accommodation.hotel
             }))
+
         self.sale_order_accommodation = sales_accommodation
 
     @api.multi
