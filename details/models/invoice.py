@@ -10,4 +10,8 @@ class DueDate(models.Model):
     @api.one
     @api.depends('sale_order_template_id')
     def date_due_method(self):
-        self.date_due = self.sale_order_template_id.endtimeee
+        # print(self.sale_order_template_id.endtimeee)
+        if self.sale_order_template_id:
+            self.date_due = self.sale_order_template_id.endtime.date()
+        # self.date_due = self.sale_order_template_id.endtimeee
+        # print(self.date_due)
