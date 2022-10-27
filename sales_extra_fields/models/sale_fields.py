@@ -406,7 +406,6 @@ class SaleOrderLineInherit(models.Model):
 class SaleOrderTemplate(models.Model):
     _inherit = "sale.order.template"
     _description = "Quotation Template"
-    endtimeee = fields.Date(string='Order Date', required=True, index=True, default=fields.Date.today(), track_visibility='always')
 
     destination = fields.Many2one('model.destination', string="Hotel",track_visibility="always")
     # hotel = fields.Many2many('model.hotel', string="Hotel")

@@ -35,10 +35,6 @@
                                 <field name="endtime" string="To"/>
 
                             </div>
-                            <div>
-                                 <label for="endtimeee" string="Too"/>
-                                <field name="endtimeee" string="Too"/>
-                            </div>
                             <div class="o_row">
                                 <label for="duration" string="Duration"/>
                                 <field name="duration" string="Duration" force_save="1"/>
