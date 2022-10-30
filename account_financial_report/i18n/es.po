@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 23:14+0000\n"
-"PO-Revision-Date: 2021-01-13 20:13+0000\n"
-"Last-Translator: Carles Antoli <carlesantoli@hotmail.com>\n"
+"POT-Creation-Date: 2018-05-18 22:19+0000\n"
+"PO-Revision-Date: 2020-05-18 07:19+0000\n"
+"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_aged_partner_balance_lines_header
@@ -134,8 +134,10 @@ msgstr "Tipo de Cuenta"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__account_type_ids
+#, fuzzy
+#| msgid "Account Type"
 msgid "Account Types"
-msgstr "Tipos de cuenta"
+msgstr "Tipo de Cuenta"
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/trial_balance_xlsx.py:109
@@ -436,7 +438,7 @@ msgid "Centralized"
 msgstr "Centralizado"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:1451
+#: code:addons/account_financial_report/report/general_ledger.py:1433
 #, python-format
 msgid "Centralized Entries"
 msgstr "Centralizar las entradas"
@@ -663,7 +665,7 @@ msgstr "Acumulado a 90 días"
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_amount_residual
 msgid "Cumul Amount Residual"
-msgstr "Cantidad residual acumulada"
+msgstr "Cantidad Residual Acumulada"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_move_line__cumul_balance
@@ -1333,14 +1335,6 @@ msgstr ""
 "webkit), solo importes centralizados por período."
 
 #. module: account_financial_report
-#: model:ir.model.fields,help:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,help:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "If set moves are not grouped by partner in any case"
-msgstr ""
-"Si esta establecido los movimientos aparecerán agrupados por empresa en "
-"ningún caso"
-
-#. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
 msgid ""
 "Initial\n"
@@ -1699,10 +1693,10 @@ msgid "No limit"
 msgstr "Sin límite"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:776
-#: code:addons/account_financial_report/report/general_ledger.py:1155
+#: code:addons/account_financial_report/report/general_ledger.py:758
+#: code:addons/account_financial_report/report/general_ledger.py:1137
 #: code:addons/account_financial_report/report/open_items.py:307
-#: code:addons/account_financial_report/report/open_items.py:560
+#: code:addons/account_financial_report/report/open_items.py:556
 #, python-format
 msgid "No partner allocated"
 msgstr "Empresa sin asignar"
@@ -1793,8 +1787,10 @@ msgstr "Inicial"
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.general_ledger_wizard
+#, fuzzy
+#| msgid "Options"
 msgid "Other options"
-msgstr "Otras opciones"
+msgstr "Opciones"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance_account__parent_id
@@ -1863,12 +1859,6 @@ msgstr "Saldo Acumulado de Empresa"
 #, python-format
 msgid "Partner ending balance"
 msgstr "Saldo final de empresa"
-
-#. module: account_financial_report
-#: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "Partner ungrouped"
-msgstr "No agrupar por empresa"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_aged_partner_balance_wizard__payable_accounts_only
@@ -2267,7 +2257,7 @@ msgid "Taxtags"
 msgstr "Etiquetas de impuestos"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:187
+#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:183
 #, python-format
 msgid ""
 "The Company in the General Ledger Report Wizard and in Date Range must be "
@@ -2628,3 +2618,33 @@ msgstr "ancho: 38.92%;"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_journal_ledger_journal_table_header
 msgid "width: 8.11%;"
 msgstr "ancho: 8.11%;"
+
+#~ msgid "account.group"
+#~ msgstr "cuenta.grupo"
+
+#~ msgid "account_financial_report_abstract"
+#~ msgstr "'account_financial_report_abstract'"
+
+#~ msgid "vat.report.wizard"
+#~ msgstr "asistente.reporte.impuestos"
+
+#~ msgid "Aged Partner Balance - %s - %s"
+#~ msgstr "Balance vencido empresa - %s - %s"
+
+#~ msgid "General Ledger - %s - %s"
+#~ msgstr "Libro mayor - %s - %s"
+
+#~ msgid "Journal Ledger - %s - %s"
+#~ msgstr "Libro diario - %s - %s"
+
+#~ msgid "Open Items - %s - %s"
+#~ msgstr "Partidas abiertas - %s - %s"
+
+#~ msgid "Trial Balance - %s - %s"
+#~ msgstr "Balance de Sumas y Saldos - %s - %s"
+
+#~ msgid "VAT Report - %s - %s"
+#~ msgstr "Informe de impuestos - %s - %s"
+
+#~ msgid "Hide Account Balance At 0"
+#~ msgstr "Ocultar saldos con valor a 0"

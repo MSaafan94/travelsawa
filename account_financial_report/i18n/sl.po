@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-07-25 06:19+0000\n"
+"PO-Revision-Date: 2020-04-07 08:19+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@matmoz.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
@@ -130,8 +130,10 @@ msgstr "Tip konta"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__account_type_ids
+#, fuzzy
+#| msgid "Account Type"
 msgid "Account Types"
-msgstr "Tipi konta"
+msgstr "Tip konta"
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/trial_balance_xlsx.py:109
@@ -256,22 +258,22 @@ msgstr "Zapade ≤ 90 dni."
 #: model:ir.ui.menu,name:account_financial_report.menu_aged_partner_balance_wizard
 #, python-format
 msgid "Aged Partner Balance"
-msgstr "Stanje zapadlih terjatev in obveznosti"
+msgstr ""
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_aged_partner_balance_base
 msgid "Aged Partner Balance -"
-msgstr "Stanje zapadlih terjatev in obveznosti -"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model,name:account_financial_report.model_aged_partner_balance_wizard
 msgid "Aged Partner Balance Wizard"
-msgstr "Čarovnik za zapadle terjatve in obveznosti"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.actions.report,name:account_financial_report.action_report_aged_partner_balance_xlsx
 msgid "Aged Partner Balance XLSX"
-msgstr "Stanje zapadlih terjatev in obveznosti XLSX"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/wizard/journal_ledger_wizard.py:64
@@ -339,12 +341,12 @@ msgstr "Znesek v valuti"
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_move_line__amount_residual
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_move_line__amount_residual
 msgid "Amount Residual"
-msgstr "Preostali znesek"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_move_line__amount_residual_currency
 msgid "Amount Residual Currency"
-msgstr "Preostali znesek v valuti"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_move_line__amount_total_due
@@ -432,7 +434,7 @@ msgstr "Centraliziraj"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_general_ledger_filters
 #, python-format
 msgid "Centralize filter"
-msgstr "Filter centralizirano"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_account_account__centralized
@@ -440,7 +442,7 @@ msgid "Centralized"
 msgstr "Centralizirano"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:1451
+#: code:addons/account_financial_report/report/general_ledger.py:1433
 #, python-format
 msgid "Centralized Entries"
 msgstr "Centralizirani vnosi"
@@ -641,49 +643,49 @@ msgstr "Dobro"
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_age_120_days
 msgid "Cumul Age 120 Days"
-msgstr "Kumul. zapadlost 120 dni"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_age_30_days
 msgid "Cumul Age 30 Days"
-msgstr "Kumul. zapadlost 30 dni"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_age_60_days
 msgid "Cumul Age 60 Days"
-msgstr "Kumul. zapadlost 60 dni"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_age_90_days
 msgid "Cumul Age 90 Days"
-msgstr "Kumul. zapadlost 90 dni"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_amount_residual
 msgid "Cumul Amount Residual"
-msgstr "Kumul. zapadli znesek"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_move_line__cumul_balance
 msgid "Cumul Balance"
-msgstr "Kumul. stanje"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_current
 msgid "Cumul Current"
-msgstr "Kumul. tekoče"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_aged_partner_balance_account__cumul_older
 msgid "Cumul Older"
-msgstr "Kumul. starejše"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/general_ledger_xlsx.py:48
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_general_ledger_lines
 #, python-format
 msgid "Cumul. Bal."
-msgstr "Kumul. stanje"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/general_ledger_xlsx.py:57
@@ -696,21 +698,21 @@ msgstr "Kumul. stanje"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
 #, python-format
 msgid "Cur."
-msgstr "Tekoče"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/open_items_xlsx.py:40
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_open_items_lines
 #, python-format
 msgid "Cur. Original"
-msgstr "Tekoče original"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/open_items_xlsx.py:46
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_open_items_lines
 #, python-format
 msgid "Cur. Residual"
-msgstr "Tekoče zapadlo"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/journal_ledger_xlsx.py:76
@@ -741,7 +743,7 @@ msgstr "Naziv valute"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_aged_partner_balance_move_lines
 #, python-format
 msgid "Current"
-msgstr "Tekoče"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/aged_partner_balance_xlsx.py:64
@@ -926,7 +928,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance__hide_parent_hierarchy_level
 #: model:ir.model.fields,field_description:account_financial_report.field_trial_balance_report_wizard__hide_parent_hierarchy_level
 msgid "Do not display parent levels"
-msgstr "Ne prikazuj nadrejenih nivojev"
+msgstr ""
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_aged_partner_balance_move_lines
@@ -980,7 +982,7 @@ msgstr "Končni saldo"
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
 msgid "Ending blance cur."
-msgstr "Tekoči končni saldo"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/journal_ledger_xlsx.py:177
@@ -1102,13 +1104,13 @@ msgstr "Filter po partnerjih"
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_account__final_amount_residual
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_partner__final_amount_residual
 msgid "Final Amount Residual"
-msgstr "Končni zapadli znesek"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_account__final_amount_residual_currency
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_partner__final_amount_residual_currency
 msgid "Final Amount Residual Currency"
-msgstr "Končni zapadli znesek v valuti"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items_account__final_amount_total_due
@@ -1142,13 +1144,13 @@ msgstr "Končni saldo v tuji valuti"
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__final_credit
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_partner__final_credit
 msgid "Final Credit"
-msgstr "Končno v dobro"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__final_debit
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_partner__final_debit
 msgid "Final Debit"
-msgstr "Končno v breme"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_journal_ledger_report_wizard__foreign_currency
@@ -1163,7 +1165,7 @@ msgstr "Tuja valuta"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_general_ledger_filters
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_filters
 msgid "From:"
-msgstr "Od:"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/general_ledger_xlsx.py:77
@@ -1171,7 +1173,7 @@ msgstr "Od:"
 #: code:addons/account_financial_report/report/trial_balance_xlsx.py:105
 #, python-format
 msgid "From: %s To: %s"
-msgstr "od: %s do: %s"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__fy_start_date
@@ -1219,7 +1221,7 @@ msgstr ""
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_journal_ledger__group_option
 msgid "Group Option"
-msgstr "Opcije združevanja"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_journal_ledger_report_wizard__group_option
@@ -1235,19 +1237,19 @@ msgstr "Združi vnose po"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_filters
 #, python-format
 msgid "Hide"
-msgstr "Skrij"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger__hide_account_at_0
 #: model:ir.model.fields,field_description:account_financial_report.field_report_open_items__hide_account_at_0
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance__hide_account_at_0
 msgid "Hide Account At 0"
-msgstr "Skrij konto z 0"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance_account__hide_line
 msgid "Hide Line"
-msgstr "Skrij vrstico"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__hide_account_at_0
@@ -1258,19 +1260,19 @@ msgstr "Skrij konte s končnim stanjem 0"
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_trial_balance_report_wizard__hide_account_at_0
 msgid "Hide accounts at 0"
-msgstr "Skrij konte z 0"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance__show_hierarchy_level
 #: model:ir.model.fields,field_description:account_financial_report.field_trial_balance_report_wizard__show_hierarchy_level
 msgid "Hierarchy Levels to display"
-msgstr "Nivoji hierarhije za prikaz"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance__hierarchy_on
 #: model:ir.model.fields,field_description:account_financial_report.field_trial_balance_report_wizard__hierarchy_on
 msgid "Hierarchy On"
-msgstr "Hierarhija vključena"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_account_financial_report_abstract__id
@@ -1314,7 +1316,7 @@ msgstr "Hierarhija vključena"
 #: model:ir.model.fields,field_description:account_financial_report.field_trial_balance_report_wizard__id
 #: model:ir.model.fields,field_description:account_financial_report.field_vat_report_wizard__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,help:account_financial_report.field_account_account__centralized
@@ -1324,19 +1326,11 @@ msgid ""
 msgstr ""
 
 #. module: account_financial_report
-#: model:ir.model.fields,help:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,help:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "If set moves are not grouped by partner in any case"
-msgstr ""
-
-#. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
 msgid ""
 "Initial\n"
 "                    balance"
 msgstr ""
-"Začetno\n"
-"                    stanje"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__initial_balance
@@ -1344,7 +1338,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance_account__initial_balance
 #: model:ir.model.fields,field_description:account_financial_report.field_report_trial_balance_partner__initial_balance
 msgid "Initial Balance"
-msgstr "Začetno stanje"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__initial_balance_foreign_currency
@@ -1358,13 +1352,13 @@ msgstr "Začetno stanje v tuji valuti"
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__initial_credit
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_partner__initial_credit
 msgid "Initial Credit"
-msgstr "Začetno v dobro"
+msgstr ""
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_account__initial_debit
 #: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger_partner__initial_debit
 msgid "Initial Debit"
-msgstr "Začetno v breme"
+msgstr ""
 
 #. module: account_financial_report
 #: code:addons/account_financial_report/report/general_ledger_xlsx.py:169
@@ -1375,7 +1369,7 @@ msgstr "Začetno v breme"
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_general_ledger_lines
 #, python-format
 msgid "Initial balance"
-msgstr "Začetno stanje"
+msgstr ""
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
@@ -1688,10 +1682,10 @@ msgid "No limit"
 msgstr ""
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:776
-#: code:addons/account_financial_report/report/general_ledger.py:1155
+#: code:addons/account_financial_report/report/general_ledger.py:758
+#: code:addons/account_financial_report/report/general_ledger.py:1137
 #: code:addons/account_financial_report/report/open_items.py:307
-#: code:addons/account_financial_report/report/open_items.py:560
+#: code:addons/account_financial_report/report/open_items.py:556
 #, python-format
 msgid "No partner allocated"
 msgstr ""
@@ -1851,12 +1845,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_open_items_ending_cumul
 #, python-format
 msgid "Partner ending balance"
-msgstr ""
-
-#. module: account_financial_report
-#: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "Partner ungrouped"
 msgstr ""
 
 #. module: account_financial_report
@@ -2256,7 +2244,7 @@ msgid "Taxtags"
 msgstr "Davčne oznake"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:187
+#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:183
 #, python-format
 msgid ""
 "The Company in the General Ledger Report Wizard and in Date Range must be "

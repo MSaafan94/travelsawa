@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-02-01 19:34+0000\n"
-"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatica@protonmail.com>\n"
+"PO-Revision-Date: 2020-06-17 23:19+0000\n"
+"Last-Translator: Fernando Colus <fcolus1@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_aged_partner_balance_lines_header
@@ -439,7 +439,7 @@ msgid "Centralized"
 msgstr "Centralizado"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:1451
+#: code:addons/account_financial_report/report/general_ledger.py:1433
 #, python-format
 msgid "Centralized Entries"
 msgstr "Lançamentos Centralizados"
@@ -1338,12 +1338,6 @@ msgstr ""
 "no webkit), apenas valores centralizados por período."
 
 #. module: account_financial_report
-#: model:ir.model.fields,help:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,help:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "If set moves are not grouped by partner in any case"
-msgstr "Se os movimentos fixos não forem agrupados por parceiro em nenhum caso"
-
-#. module: account_financial_report
 #: model_terms:ir.ui.view,arch_db:account_financial_report.report_trial_balance_lines_header
 msgid ""
 "Initial\n"
@@ -1702,10 +1696,10 @@ msgid "No limit"
 msgstr "Sem limite"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/report/general_ledger.py:776
-#: code:addons/account_financial_report/report/general_ledger.py:1155
+#: code:addons/account_financial_report/report/general_ledger.py:758
+#: code:addons/account_financial_report/report/general_ledger.py:1137
 #: code:addons/account_financial_report/report/open_items.py:307
-#: code:addons/account_financial_report/report/open_items.py:560
+#: code:addons/account_financial_report/report/open_items.py:556
 #, python-format
 msgid "No partner allocated"
 msgstr "Nenhum parceiro alocado"
@@ -1868,12 +1862,6 @@ msgstr "Saldo periódico acumulado do parceiro"
 #, python-format
 msgid "Partner ending balance"
 msgstr "Saldo final do parceiro"
-
-#. module: account_financial_report
-#: model:ir.model.fields,field_description:account_financial_report.field_general_ledger_report_wizard__partner_ungrouped
-#: model:ir.model.fields,field_description:account_financial_report.field_report_general_ledger__partner_ungrouped
-msgid "Partner ungrouped"
-msgstr "Parceiro desagrupado"
 
 #. module: account_financial_report
 #: model:ir.model.fields,field_description:account_financial_report.field_aged_partner_balance_wizard__payable_accounts_only
@@ -2274,7 +2262,7 @@ msgid "Taxtags"
 msgstr "Marcadores de Impostos"
 
 #. module: account_financial_report
-#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:187
+#: code:addons/account_financial_report/wizard/general_ledger_wizard.py:183
 #, python-format
 msgid ""
 "The Company in the General Ledger Report Wizard and in Date Range must be "

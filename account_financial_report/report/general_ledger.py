@@ -52,10 +52,6 @@ class GeneralLedgerReport(models.TransientModel):
             'analytic.group_analytic_accounting'
         )
     )
-    partner_ungrouped = fields.Boolean(
-        string='Partner ungrouped',
-        help='If set moves are not grouped by partner in any case'
-    )
 
     # Data fields, used to browse report data
     account_ids = fields.One2many(
@@ -116,7 +112,7 @@ class GeneralLedgerReportAccount(models.TransientModel):
 
     # Data fields, used to browse report data
     move_line_ids = fields.One2many(
-        comodel_name='report_general_ledger_move_line',
+        comodel_name='report_general_ledger_move_linee',
         inverse_name='report_account_id'
     )
     partner_ids = fields.One2many(
@@ -156,7 +152,7 @@ class GeneralLedgerReportPartner(models.TransientModel):
 
     # Data fields, used to browse report data
     move_line_ids = fields.One2many(
-        comodel_name='report_general_ledger_move_line',
+        comodel_name='report_general_ledger_move_linee',
         inverse_name='report_partner_id'
     )
 
@@ -176,7 +172,7 @@ ORDER BY
 
 class GeneralLedgerReportMoveLine(models.TransientModel):
 
-    _name = 'report_general_ledger_move_line'
+    _name = 'report_general_ledger_move_linee'
     _inherit = 'account_financial_report_abstract'
 
     report_account_id = fields.Many2one(
@@ -335,11 +331,6 @@ class GeneralLedgerReportCompute(models.TransientModel):
             sub_subquery_sum_amounts += """
                 AND at.include_initial_balance = TRUE
             """
-        if self.filter_journal_ids:
-            sub_subquery_sum_amounts += """
-            AND
-                ml.journal_id IN (%s)
-            """ % ', '.join(map(str, self.filter_journal_ids.ids))
 
         if self.only_posted_moves:
             sub_subquery_sum_amounts += """
@@ -408,17 +399,8 @@ WITH
                 a.id,
                 a.code,
                 a.name,
-            """
-        if self.partner_ungrouped:
-            query_inject_account += """
-                FALSE AS is_partner_account,
-            """
-        else:
-            query_inject_account += """
                 a.internal_type IN ('payable', 'receivable')
                     AS is_partner_account,
-                """
-        query_inject_account += """
                 a.user_type_id,
                 a.currency_id
             FROM
@@ -1019,7 +1001,7 @@ AND
             is_partner_line=False,
             only_empty_partner_line=False,
             only_unaffected_earnings_account=False):
-        """ Inject report values for report_general_ledger_move_line.
+        """ Inject report values for report_general_ledger_move_linee.
 
         If centralized option have been chosen,
         only non centralized accounts are computed.
@@ -1070,7 +1052,7 @@ AND
                     """
         query_inject_move_line += """
 INSERT INTO
-    report_general_ledger_move_line
+    report_general_ledger_move_linee
     (
         """
         if is_account_line:
@@ -1341,7 +1323,7 @@ ORDER BY
         )
 
     def _inject_line_centralized_values(self):
-        """ Inject report values for report_general_ledger_move_line.
+        """ Inject report values for report_general_ledger_move_linee.
 
         Only centralized accounts are computed.
         """
@@ -1428,7 +1410,7 @@ WITH
                 ra.id, ml.account_id, a.code, 2, ml.currency_id, ml.journal_id
         )
 INSERT INTO
-    report_general_ledger_move_line
+    report_general_ledger_move_linee
     (
     report_account_id,
     create_uid,
@@ -1510,7 +1492,7 @@ ORDER BY
         """ Compute "tags" column"""
         query_update_analytic_tags = """
 UPDATE
-    report_general_ledger_move_line
+    report_general_ledger_move_linee
 SET
     tags = tags_values.tags
 FROM
@@ -1522,7 +1504,7 @@ FROM
             FROM
                 account_move_line ml
             INNER JOIN
-                report_general_ledger_move_line rml
+                report_general_ledger_move_linee rml
                     ON ml.id = rml.move_line_id
             INNER JOIN
                 report_general_ledger_account ra
@@ -1547,7 +1529,7 @@ FROM
             FROM
                 account_move_line ml
             INNER JOIN
-                report_general_ledger_move_line rml
+                report_general_ledger_move_linee rml
                     ON ml.id = rml.move_line_id
             INNER JOIN
                 report_general_ledger_partner rp
@@ -1569,7 +1551,7 @@ FROM
         )
     ) AS tags_values
 WHERE
-    report_general_ledger_move_line.id = tags_values.report_id
+    report_general_ledger_move_linee.id = tags_values.report_id
             """
         params = {
             'report_id': self.id,
