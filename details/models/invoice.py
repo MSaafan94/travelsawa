@@ -12,6 +12,6 @@ class DueDate(models.Model):
     def date_due_method(self):
         # print(self.sale_order_template_id.endtimeee)
         if self.sale_order_template_id:
-            self.date_due = self.sale_order_template_id.endtime.date()
+            self.date_due = self.sale_order_template_id.starttime.date()
         # self.date_due = self.sale_order_template_id.endtimeee
         # print(self.date_due)
