@@ -59,7 +59,12 @@
                 <xpath expr="//field[@name='vat']" position="after">
                     <field name="relation" attrs="{'invisible':[('company_type','=','company')]}"/>
                     <field name="service_type"/>
-                    <field name="whatsapp_num"/>
+                         <label for ='whatsapp_num' />
+                     <div class="0-row">
+                         <field name="whatsapp_num" filter_domain="[('whatsapp_num','ilike',self)]"/>
+                         <button icon="fa-whatsapp" style="color:#25D366;border:none" help="Send WhatsApp Message" name="open_whatsapp_web" type="object" attrs="{'invisible': [('whatsapp_num', '=', False)]}"/>
+                         <button icon="fa-whatsapp" style="color:#d3254e;border:none" help="Send WhatsApp Message" name="open_whatsapp_mobile" type="object" attrs="{'invisible': [('whatsapp_num', '=', False)]}"/>
+                    </div>
                     <field name="gender"/>
                     <field name="birthday" required="1"/>
                     <label for="years" string="Age"/>

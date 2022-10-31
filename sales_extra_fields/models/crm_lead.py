@@ -36,7 +36,7 @@ class CrmLead(models.Model):
     Description = fields.Text("Description")
     owner = fields.Char("Owner")
     created_at = fields.Datetime("Created at")
-    probability_custom = fields.Integer()
+    # probability_custom = fields.Integer()
 
     def open_whatsapp_web(self):
         if len(self.whatsapp_num) <= 11:
@@ -53,6 +53,26 @@ class CrmLead(models.Model):
                 return {
                     "type": 'ir.actions.act_url',
                     "url": 'https://web.whatsapp.com/send/?phone={}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+
+    def open_whatsapp_mobile(self):
+        if len(self.whatsapp_num) <= 11:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://api.whatsapp.com/send/?phone=+2{}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+        else:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://api.whatsapp.com/send/?phone={}'.format(self.whatsapp_num),
                     "target": 'new'
                 }
             else:

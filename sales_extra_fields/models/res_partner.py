@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 import datetime
 from odoo.exceptions import UserError
 import logging
+from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -55,6 +56,47 @@ class ResPartner(models.Model):
     user_id = fields.Many2one('res.users', string='Salesperson',
                               help='The internal user in charge of this contact.', required=True,
                               default=lambda self: self.env.user)
+
+    def open_whatsapp_web(self):
+        if len(self.whatsapp_num) <= 11:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://web.whatsapp.com/send/?phone=+2{}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+        else:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://web.whatsapp.com/send/?phone={}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+
+    def open_whatsapp_mobile(self):
+        if len(self.whatsapp_num) <= 11:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://api.whatsapp.com/send/?phone=+2{}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+        else:
+            if self.whatsapp_num:
+                return {
+                    "type": 'ir.actions.act_url',
+                    "url": 'https://api.whatsapp.com/send/?phone={}'.format(self.whatsapp_num),
+                    "target": 'new'
+                }
+            else:
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
+
 
     @api.multi
     @api.onchange('whatsapp_num')
