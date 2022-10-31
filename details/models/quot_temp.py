@@ -190,3 +190,10 @@ class QuotProgram(models.Model):
     status = fields.Selection([('yes', 'Yes'), ('no', 'No')], default='yes', store=True)
     quot_id = fields.Many2one('sale.order.template')
     individual = fields.Boolean(related='quot_id.individual', )
+
+
+class DocumentFix(models.Model):
+    _inherit = 'ir.attachment'
+
+    folder_id = fields.Many2one('documents.folder', track_visibility="onchange", index=True)
+

@@ -31,7 +31,7 @@ class CrmLead(models.Model):
     passport_expiry = fields.Date("Passport Expiry Date")
     lead_source = fields.Many2one("utm.source", required=True)
     id_number = fields.Char("ID Number")
-    destination_1 = fields.Many2one('destination', "Destination 1", required=True)
+    destination_1 = fields.Many2one('destination', "Destination 1")
     booking_status = fields.Many2one('booking.status', "Booking Status")
     Description = fields.Text("Description")
     owner = fields.Char("Owner")
@@ -56,7 +56,7 @@ class CrmLead(models.Model):
                     "target": 'new'
                 }
             else:
-                raise ValidationError("Please Provide Contact number for")
+                raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
 
     @api.onchange('partner_id')
     def _fill_contact_data(self):
