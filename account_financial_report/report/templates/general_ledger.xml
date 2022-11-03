@@ -20,17 +20,17 @@
         <t t-set="title">General Ledger - <t t-raw="o.company_id.name"/> - <t t-raw="o.company_id.currency_id.name"/></t>
         <t t-set="company_name" t-value="o.company_id.name"/>
         <div class="page">
-            <div class="row">
-                <h4 class="mt0" t-esc="title or 'Odoo Report'" style="text-align: center;"/>
-            </div>
+<!--            <div class="row">-->
+<!--&lt;!&ndash;                <h4 class="mt0" t-esc="title or 'Odoo Report'" style="text-align: center;"/>&ndash;&gt;-->
+<!--            </div>-->
             <!-- Display filters -->
             <t t-call="account_financial_report.report_general_ledger_filters"/>
             <t t-foreach="o.account_ids" t-as="account">
                 <div class="page_break">
                     <!-- Display account header -->
-                    <div class="act_as_table list_table" style="margin-top: 10px;"/>
+                    <div class="act_as_table list_table" />
                     <div class="act_as_caption account_title"
-                         style="width: 100%; font-size:20px;">
+                         style="width: 100%; font-size:15px;">
                         <span t-field="account.code"/> - <span t-field="account.name"/>
                     </div>
 
@@ -49,7 +49,7 @@
                             <div class="page_break">
                                 <!-- Display partner header -->
                                 <div class="act_as_caption account_title">
-                                    <span t-field="partner.name" style="font-size:20px;"/>
+                                    <span t-field="partner.name" style="font-size:15px;"/>
                                 </div>
 
                                 <!-- Display partner move lines -->
@@ -117,44 +117,44 @@
                 <div class="act_as_row labels">
                     <!--## date-->
                     <div class="act_as_cell first_column">
-                       <span> <a style="font-size:20px;"> Date </a> </span></div>
+                       <span> <a style="font-size:15px;"> Date </a> </span></div>
                     <!--## move-->
-                    <div class="act_as_cell" style="font-size:20px;">Entry</div>
+                    <div class="act_as_cell" style="font-size:15px;">Entry</div>
                     <!--## journal-->
-<!--                    <div class="act_as_cell" style="font-size:20px;">Journal</div>-->
+<!--                    <div class="act_as_cell" style="font-size:15px;">Journal</div>-->
                     <!--## account code-->
 <!--                    <div class="act_as_cell" style="width: 4.75%;">Account</div>-->
                     <!--## account code-->
 <!--                    <div class="act_as_cell" style="width: 8.89%;">Taxes</div>-->
                     <!--## partner-->
-                    <div class="act_as_cell" style="font-size:20px;">Partner
+                    <div class="act_as_cell" style="font-size:15px;">Partner
                     </div>
                     <!--## ref - label-->
-                    <div class="act_as_cell" style="font-size:20px;">Ref -
+                    <div class="act_as_cell" style="font-size:15px;">Ref -
                         Label</div>
                     <t t-if="show_cost_center">
                         <!--## cost_center-->
-                        <div class="act_as_cell" style="font-size:20px;">Cost
+                        <div class="act_as_cell" style="font-size:15px;">Cost
                             center</div>
                     </t>
                     <t t-if="show_analytic_tags">
                         <!--## analytic tags-->
-                        <div class="act_as_cell" style="font-size:20px;">Tags</div>
+                        <div class="act_as_cell" style="font-size:15px;">Tags</div>
                     </t>
                     <!--## matching_number-->
 <!--                    <div class="act_as_cell" style="width: 2.41%;">Rec.</div>-->
                     <!--## debit-->
-                    <div class="act_as_cell amount" style="font-size:20px;">Debit</div>
+                    <div class="act_as_cell" style="font-size:15px;">Debit</div>
                     <!--## credit-->
-                    <div class="act_as_cell amount" style="font-size:20px;">Credit</div>
+                    <div class="act_as_cell" style="font-size:15px;">Credit</div>
                     <!--## balance cumulated-->
-                    <div class="act_as_cell amount" style="font-size:20px;">Cumul. Bal.</div>
-                    <t t-if="foreign_currency">
-                        <!--## currency_name-->
-                        <div class="act_as_cell" style="font-size:20px;">Cur.</div>
-                        <!--## amount_currency-->
-                        <div class="act_as_cell amount" style="font-size:20px;">Amount cur.</div>
-                    </t>
+                    <div class="act_as_cell" style="font-size:15px;">Balance</div>
+<!--                    <t t-if="foreign_currency">-->
+<!--                        &lt;!&ndash;## currency_name&ndash;&gt;-->
+<!--                        <div class="act_as_cell" style="font-size:15px;">Cur.</div>-->
+<!--                        &lt;!&ndash;## amount_currency&ndash;&gt;-->
+<!--                        <div class="act_as_cell amount" style="font-size:15px;">Amount cur.</div>-->
+<!--                    </t>-->
                 </div>
             </div>
 
@@ -173,7 +173,7 @@
                 <!--## partner-->
                 <div class="act_as_cell"/>
                 <!--## ref - label-->
-                <div class="act_as_cell amount"><span><a style="font-size: 20px" >Initial balance</a></span></div>
+                <div class="act_as_cell amount"><span><a style="font-size:15px" >Initial balance</a></span></div>
                 <t t-if="show_cost_center">
                     <!--## cost_center-->
                     <div class="act_as_cell"/>
@@ -195,7 +195,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -209,7 +209,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -225,7 +225,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -239,7 +239,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -254,7 +254,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -267,7 +267,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <t t-raw="account_or_partner_object.initial_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -286,7 +286,7 @@
                                     <a t-att-data-domain="domain"
                                        t-att-data-res-model="'account.move.line'"
                                        class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size: 20px">
+                                       style="font-size:15px">
                                     <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>
                                 </span>
                             </t>
@@ -299,7 +299,7 @@
                                     <a t-att-data-domain="domain"
                                        t-att-data-res-model="'account.move.line'"
                                        class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size: 20px">
+                                       style="font-size:15px">
                                     <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>
                                 </span>
                             </t>
@@ -323,7 +323,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                             <!--## We don't use t-field because it throws an error on click -->
                                 <t t-esc="line.date" t-options="{'widget': 'date'}"/></a>
                         </span>
@@ -335,7 +335,7 @@
                             <a t-att-data-active-id="line.move_line_id.move_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                                 <t t-raw="line.entry"/></a>
                         </span>
                     </div>
@@ -346,7 +346,7 @@
 <!--                            <a t-att-data-active-id="line.move_line_id.move_id.journal_id.id"-->
 <!--                               t-att-data-res-model="res_model"-->
 <!--                               class="o_account_financial_reports_web_action"-->
-<!--                               style="font-size: 20px">-->
+<!--                               style="font-size:15px">-->
 <!--                                <t t-raw="line.journal"/></a>-->
 <!--                        </span>-->
 <!--                    </div>-->
@@ -357,7 +357,7 @@
 <!--                            <a t-att-data-active-id="line.move_line_id.account_id.id"-->
 <!--                               t-att-data-res-model="res_model"-->
 <!--                               class="o_account_financial_reports_web_action"-->
-<!--                               style="font-size: 20px">-->
+<!--                               style="font-size:15px">-->
 <!--                                <t t-raw="line.account"/></a>-->
 <!--                        </span>-->
 <!--                    </div>-->
@@ -370,7 +370,7 @@
                             <a t-att-data-active-id="line.move_line_id.partner_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action"
-                               style="font-size: 20px"><t t-raw="line.partner"/></a>
+                               style="font-size:15px"><t t-raw="line.partner"/></a>
                         </span>
                     </div>
                     <!--## ref - label-->
@@ -380,7 +380,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                                 <t t-raw="line.label"/></a>
                         </span>
                     </div>
@@ -392,7 +392,7 @@
                                 <a t-att-data-active-id="line.move_line_id.analytic_account_id.id"
                                    t-att-data-res-model="res_model"
                                    class="o_account_financial_reports_web_action"
-                                   style="font-size: 20px"><t t-raw="line.cost_center"/></a>
+                                   style="font-size:15px"><t t-raw="line.cost_center"/></a>
                             </span>
                         </div>
                     </t>
@@ -407,7 +407,7 @@
 <!--                            <a t-att-data-active-id="line.move_line_id.full_reconcile_id.id"-->
 <!--                               t-att-data-res-model="res_model"-->
 <!--                               class="o_account_financial_reports_web_action"-->
-<!--                               style="font-size: 20px"><t t-raw="line.matching_number"/></a>-->
+<!--                               style="font-size:15px"><t t-raw="line.matching_number"/></a>-->
 <!--                        </span>-->
 <!--                    </div>-->
                     <!--## debit-->
@@ -417,7 +417,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action_monetary"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                                 <t t-raw="line.debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </div>
@@ -428,7 +428,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action_monetary"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                                 <t t-raw="line.credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </div>
@@ -440,7 +440,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action_monetary"
-                               style="font-size: 20px">
+                               style="font-size:15px">
                                 <t t-raw="line.cumul_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </div>
@@ -457,7 +457,7 @@
                                     <a t-att-data-active-id="line.move_line_id.id"
                                        t-att-data-res-model="res_model"
                                        class="o_account_financial_reports_web_action"
-                                       style="font-size: 20px">
+                                       style="font-size:15px">
                                         <t t-raw="line.amount_currency" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/></a>
                                 </span>
                             </div>
@@ -481,35 +481,35 @@
                 <!--## date-->
                 <t t-if='type == "account_type"'>
                     <div class="act_as_cell first_column"
-                         style="width: 41.32%;"><span
+                         style="width: 60.32%;"><span
                             t-field="account_or_partner_object.code"/> - <span t-field="account_or_partner_object.name"/></div>
                     <div class="act_as_cell right"
-                         style="font-size:20px;">Ending balance</div>
+                         style="font-size:15px;">Ending balance</div>
                 </t>
                 <t t-if='type == "partner_type"'>
                     <div class="act_as_cell first_column" style="width: 41.32%;"/>
-                    <div class="act_as_cell right" style="font-size:20px;">Partner ending balance</div>
+                    <div class="act_as_cell right" style="font-size:15px;">Partner ending balance</div>
                 </t>
                 <t t-if="show_cost_center">
                     <!--## cost_center-->
-                    <div class="act_as_cell" style="font-size:20px;"/>
+                    <div class="act_as_cell" style="font-size:15px;"/>
                 </t>
                 <t t-if="show_analytic_tags">
                     <!--## analytic tags-->
-                    <div class="act_as_cell" style="font-size:20px;"></div>
+                    <div class="act_as_cell" style="font-size:15px;"></div>
                 </t>
                 <!--## matching_number-->
 <!--                <div class="act_as_cell" style="width: 2.41%;"/>-->
                 <!--## debit-->
-                <div class="act_as_cell amount" style="font-size:20px;">
+                <div class="act_as_cell amount" style="font-size:15px;">
                     <span t-field="account_or_partner_object.final_debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                 </div>
                 <!--## credit-->
-                <div class="act_as_cell amount" style="font-size:20px;">
+                <div class="act_as_cell amount" style="font-size:15px;">
                     <span t-field="account_or_partner_object.final_credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                 </div>
                 <!--## balance cumulated-->
-                <div class="act_as_cell amount" style="font-size:20px;">
+                <div class="act_as_cell amount" style="font-size:15px;">
                     <span t-field="account_or_partner_object.final_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                 </div>
                 <!--## currency_name + amount_currency-->
@@ -527,7 +527,7 @@
                                     <a t-att-data-domain="domain"
                                        t-att-data-res-model="'account.move.line'"
                                        class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size: 20px">
+                                       style="font-size:15px">
                                     <t t-raw="account_or_partner_object.final_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account_or_partner_object.account_id.currency_id}"/></a>
                                 </span>
                             </t>
@@ -540,7 +540,7 @@
                                     <a t-att-data-domain="domain"
                                        t-att-data-res-model="'account.move.line'"
                                        class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size: 20px">
+                                       style="font-size:15px">
                                     <t t-raw="account_or_partner_object.final_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account_or_partner_object.report_account_id.currency_id}"/></a>
                                 </span>
                             </t>
