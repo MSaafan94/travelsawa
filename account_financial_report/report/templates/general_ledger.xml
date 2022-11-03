@@ -272,44 +272,44 @@
                         </span>
                     </t>
                 </div>
-                <t t-if="foreign_currency">
-                    <t t-if="account.account_id.currency_id.id">
-                        <div class="act_as_cell amount" style="width: 2.08%;">
-                            <span t-field="account.account_id.currency_id.display_name"/>
-                        </div>
-                        <div class="act_as_cell amount" style="width: 5.19%;">
-                            <t t-if="type == 'account_type'">
-                                <t t-set="domain"
-                                   t-value="[('account_id', '=', account_or_partner_object.account_id.id),
-                                             ('date', '&lt;', o.date_from)]"/>
-                                <span>
-                                    <a t-att-data-domain="domain"
-                                       t-att-data-res-model="'account.move.line'"
-                                       class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size:15px">
-                                    <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>
-                                </span>
-                            </t>
-                            <t t-if="type == 'partner_type'">
-                                <t t-set="domain"
-                                   t-value="[('account_id', '=', account_or_partner_object.report_account_id.account_id.id),
-                                             ('partner_id', '=', account_or_partner_object.partner_id.id),
-                                             ('date', '&lt;', o.date_from)]"/>
-                                <span>
-                                    <a t-att-data-domain="domain"
-                                       t-att-data-res-model="'account.move.line'"
-                                       class="o_account_financial_reports_web_action_monetary_multi"
-                                       style="font-size:15px">
-                                    <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>
-                                </span>
-                            </t>
-                        </div>
-                    </t>
-                    <t t-if="not account.account_id.currency_id.id">
-                        <div class="act_as_cell" style="width: 2.08%;"/>
-                        <div class="act_as_cell" style="width: 5.19%;"/>
-                    </t>
-                </t>
+<!--                <t t-if="foreign_currency">-->
+<!--                    <t t-if="account.account_id.currency_id.id">-->
+<!--                        <div class="act_as_cell amount" style="width: 2.08%;">-->
+<!--                            <span t-field="account.account_id.currency_id.display_name"/>-->
+<!--                        </div>-->
+<!--                        <div class="act_as_cell amount" style="width: 5.19%;">-->
+<!--                            <t t-if="type == 'account_type'">-->
+<!--                                <t t-set="domain"-->
+<!--                                   t-value="[('account_id', '=', account_or_partner_object.account_id.id),-->
+<!--                                             ('date', '&lt;', o.date_from)]"/>-->
+<!--                                <span>-->
+<!--                                    <a t-att-data-domain="domain"-->
+<!--                                       t-att-data-res-model="'account.move.line'"-->
+<!--                                       class="o_account_financial_reports_web_action_monetary_multi"-->
+<!--                                       style="font-size:15px">-->
+<!--                                    <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="type == 'partner_type'">-->
+<!--                                <t t-set="domain"-->
+<!--                                   t-value="[('account_id', '=', account_or_partner_object.report_account_id.account_id.id),-->
+<!--                                             ('partner_id', '=', account_or_partner_object.partner_id.id),-->
+<!--                                             ('date', '&lt;', o.date_from)]"/>-->
+<!--                                <span>-->
+<!--                                    <a t-att-data-domain="domain"-->
+<!--                                       t-att-data-res-model="'account.move.line'"-->
+<!--                                       class="o_account_financial_reports_web_action_monetary_multi"-->
+<!--                                       style="font-size:15px">-->
+<!--                                    <t t-raw="account_or_partner_object.initial_balance_foreign_currency" t-options="{'widget': 'monetary', 'display_currency': account.account_id.currency_id}"/></a>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                    <t t-if="not account.account_id.currency_id.id">-->
+<!--                        <div class="act_as_cell" style="width: 2.08%;"/>-->
+<!--                        <div class="act_as_cell" style="width: 5.19%;"/>-->
+<!--                    </t>-->
+<!--                </t>-->
             </div>
 
             <!-- Display each lines -->
