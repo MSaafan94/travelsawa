@@ -79,29 +79,29 @@
     <template id="account_financial_report.report_general_ledger_filters">
         <div class="act_as_table data_table" style="width: 100%;">
             <div class="act_as_row labels">
-                <div class="act_as_cell">Date range filter</div>
-                <div class="act_as_cell">Target moves filter</div>
-                <div class="act_as_cell">Account balance at 0 filter</div>
-                <div class="act_as_cell">Centralize filter</div>
-                <div class="act_as_cell">Show analytic tags</div>
+                <div class="act_as_cell" style="font-size:15px;">Date range filter</div>
+                <div class="act_as_cell" style="font-size:15px;">Target moves filter</div>
+                <div class="act_as_cell" style="font-size:15px;">Account balance at 0 filter</div>
+                <div class="act_as_cell" style="font-size:15px;">Centralize filter</div>
+                <div class="act_as_cell" style="font-size:15px;">Show analytic tags</div>
             </div>
             <div class="act_as_row">
-                <div class="act_as_cell">
+                <div class="act_as_cell" style="font-size:15px;">
                     From: <span t-field="o.date_from"/> To: <span t-field="o.date_to"/>
                 </div>
-                <div class="act_as_cell">
+                <div class="act_as_cell" style="font-size:15px;">
                     <t t-if="o.only_posted_moves">All posted entries</t>
                     <t t-if="not o.only_posted_moves">All entries</t>
                 </div>
-                <div class="act_as_cell">
+                <div class="act_as_cell" style="font-size:15px;">
                     <t t-if="o.hide_account_at_0">Hide</t>
                     <t t-if="not o.hide_account_at_0">Show</t>
                 </div>
-                <div class="act_as_cell">
+                <div class="act_as_cell" style="font-size:15px;">
                     <t t-if="o.centralize">Yes</t>
                     <t t-if="not o.centralize">No</t>
                 </div>
-                <div class="act_as_cell">
+                <div class="act_as_cell" style="font-size:15px;">
                     <t t-if="o.show_analytic_tags">Yes</t>
                     <t t-if="not o.show_analytic_tags">No</t>
                 </div>
@@ -173,7 +173,7 @@
                 <!--## partner-->
                 <div class="act_as_cell"/>
                 <!--## ref - label-->
-                <div class="act_as_cell amount"><span><a style="font-size:15px" >Initial balance</a></span></div>
+                <div class="act_as_cell amount"><span><a style="font-size:15px;font-weight: bold;" >Initial balance</a></span></div>
                 <t t-if="show_cost_center">
                     <!--## cost_center-->
                     <div class="act_as_cell"/>
@@ -195,7 +195,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size:15px">
+                               style="font-size:15px;font-weight: bold;">
                             <t t-raw="account_or_partner_object.initial_debit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -225,7 +225,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size:15px">
+                               style="font-size:15px;font-weight: bold;">
                             <t t-raw="account_or_partner_object.initial_credit" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -254,7 +254,7 @@
                             <a t-att-data-domain="domain"
                                t-att-data-res-model="'account.move.line'"
                                class="o_account_financial_reports_web_action_monetary_multi"
-                               style="font-size:15px">
+                               style="font-size:15px;color:red;font-weight: bold;">
                             <t t-raw="account_or_partner_object.initial_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </t>
@@ -335,7 +335,7 @@
                             <a t-att-data-active-id="line.move_line_id.move_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action"
-                               style="font-size:15px">
+                               style="font-size:15px;color:red;">
                                 <t t-raw="line.entry"/></a>
                         </span>
                     </div>
@@ -440,7 +440,7 @@
                             <a t-att-data-active-id="line.move_line_id.id"
                                t-att-data-res-model="res_model"
                                class="o_account_financial_reports_web_action_monetary"
-                               style="font-size:15px">
+                               style="font-size:15px;color:red">
                                 <t t-raw="line.cumul_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></a>
                         </span>
                     </div>

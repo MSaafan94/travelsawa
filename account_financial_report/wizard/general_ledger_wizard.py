@@ -53,7 +53,7 @@ class GeneralLedgerReportWizard(models.TransientModel):
         help='Use this filter to hide an account or a partner '
              'with an ending balance at 0. '
              'If partners are filtered, '
-             'debits and credits totals will not match the trial balance.'
+             'debits and credits totals will not match the trial balance.', default=True
     )
     show_analytic_tags = fields.Boolean(
         string='Show analytic tags',
