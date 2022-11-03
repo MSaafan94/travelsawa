@@ -89,7 +89,7 @@ class GeneralLedgerReportWizard(models.TransientModel):
         help='Display foreign currency for move lines, unless '
              'account currency is not setup through chart of accounts '
              'will display initial and final balance in that currency.',
-        default=lambda self: self._default_foreign_currency(),
+        # default=lambda self: self._default_foreign_currency(),
     )
 
     def _init_date_from(self):
@@ -104,8 +104,8 @@ class GeneralLedgerReportWizard(models.TransientModel):
                 or cur_month == last_fsc_month and cur_day <= last_fsc_day:
             return time.strftime('%Y-01-01')
 
-    def _default_foreign_currency(self):
-        return self.env.user.has_group('base.group_multi_currency')
+    # def _default_foreign_currency(self):
+    #     return self.env.user.has_group('base.group_multi_currency')
 
     @api.depends('date_from')
     def _compute_fy_start_date(self):
