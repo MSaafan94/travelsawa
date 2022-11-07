@@ -53,17 +53,17 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Filter partners">
+                        <page string="Filter Partners">
                             <field name="partner_ids" nolabel="1"
                                    widget="many2many_tags"
                                    options="{'no_create': True}"/>
                         </page>
-                        <page string="Filter cost centers" groups="analytic.group_analytic_accounting">
+                        <page string="Filter Analytic Account" groups="analytic.group_analytic_accounting">
                             <field name="cost_center_ids" nolabel="1"
                                    options="{'no_create': True}"
                                    groups="analytic.group_analytic_accounting"/>
                         </page>
-                        <page string="Filter analytic tags">
+                        <page string="Filter Analytic Tags">
                             <field name="analytic_tag_ids" widget="many2many_tags" nolabel="1" options="{'no_create': True}"/>
                         </page>
                     </notebook>

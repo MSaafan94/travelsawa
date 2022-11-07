@@ -25,6 +25,15 @@
 <!--            </div>-->
             <!-- Display filters -->
             <t t-call="account_financial_report.report_general_ledger_filters"/>
+
+            <t t-call="account_financial_report.report_general_ledger_filterss"/>
+
+            <t t-foreach="o.account_ids" t-as="account">
+                <div>
+
+                </div>
+            </t>
+
             <t t-foreach="o.account_ids" t-as="account">
                 <div class="page_break">
                     <!-- Display account header -->
@@ -109,6 +118,17 @@
         </div>
     </template>
 
+    <template id="account_financial_report.report_general_ledger_filterss">
+        <div class="act_as_table data_table" style="width: 100%;">
+            <div class="act_as_row labels">
+<!--                <div class="act_as_cell" style="font-size:15px;"> <span t-field="account_or_partner_object.final_debit"/> </div>-->
+                <div class="act_as_cell" style="font-size:15px;"> Total credit </div>
+                <div class="act_as_cell" style="font-size:15px;"> Balance </div>
+
+            </div>
+        </div>
+    </template>
+
     <template id="account_financial_report.report_general_ledger_lines">
         <div class="act_as_table data_table" style="width: 100%;">
 
@@ -173,7 +193,7 @@
                 <!--## partner-->
                 <div class="act_as_cell"/>
                 <!--## ref - label-->
-                <div class="act_as_cell amount"><span><a style="font-size:15px;font-weight: bold;" >Initial balance</a></span></div>
+                <div class="act_as_cell amount"><span><a style="font-size:15px;font-weight: bold;" >Initial Balance</a></span></div>
                 <t t-if="show_cost_center">
                     <!--## cost_center-->
                     <div class="act_as_cell"/>

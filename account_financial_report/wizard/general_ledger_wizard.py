@@ -41,13 +41,13 @@ class GeneralLedgerReportWizard(models.TransientModel):
                                     ('all', 'All Entries')],
                                    string='Target Moves',
                                    required=True,
-                                   default='all')
+                                   default='posted')
     account_ids = fields.Many2many(
         comodel_name='account.account',
         string='Filter accounts',
     )
     centralize = fields.Boolean(string='Activate centralization',
-                                default=True)
+                                default=False)
     hide_account_at_0 = fields.Boolean(
         string='Hide account ending balance at 0',
         help='Use this filter to hide an account or a partner '
@@ -231,6 +231,7 @@ class GeneralLedgerReportWizard(models.TransientModel):
         self.ensure_one()
         report_type = 'xlsx'
         return self._export(report_type)
+
 
     def _prepare_report_general_ledger(self):
         self.ensure_one()
