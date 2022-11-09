@@ -205,6 +205,10 @@ class GeneralLedgerReportMoveLine(models.TransientModel):
     cumul_balance = fields.Float(digits=(16, 2))
     currency_id = fields.Many2one('res.currency')
     amount_currency = fields.Float(digits=(16, 2))
+    total_debit = fields.Float(digits=(16, 2))
+    total_credit = fields.Float(digits=(16, 2))
+    total_balance = fields.Float(digits=(16, 2))
+
 
 
 class GeneralLedgerReportCompute(models.TransientModel):

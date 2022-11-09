@@ -20,19 +20,10 @@
         <t t-set="title">General Ledger - <t t-raw="o.company_id.name"/> - <t t-raw="o.company_id.currency_id.name"/></t>
         <t t-set="company_name" t-value="o.company_id.name"/>
         <div class="page">
-<!--            <div class="row">-->
-<!--&lt;!&ndash;                <h4 class="mt0" t-esc="title or 'Odoo Report'" style="text-align: center;"/>&ndash;&gt;-->
-<!--            </div>-->
-            <!-- Display filters -->
+
+<!--            <t t-call="account_financial_report.report_general_ledger_filterss"/>-->
+
             <t t-call="account_financial_report.report_general_ledger_filters"/>
-
-            <t t-call="account_financial_report.report_general_ledger_filterss"/>
-
-            <t t-foreach="o.account_ids" t-as="account">
-                <div>
-
-                </div>
-            </t>
 
             <t t-foreach="o.account_ids" t-as="account">
                 <div class="page_break">
@@ -118,16 +109,7 @@
         </div>
     </template>
 
-    <template id="account_financial_report.report_general_ledger_filterss">
-        <div class="act_as_table data_table" style="width: 100%;">
-            <div class="act_as_row labels">
-<!--                <div class="act_as_cell" style="font-size:15px;"> <span t-field="account_or_partner_object.final_debit"/> </div>-->
-                <div class="act_as_cell" style="font-size:15px;"> Total credit </div>
-                <div class="act_as_cell" style="font-size:15px;"> Balance </div>
 
-            </div>
-        </div>
-    </template>
 
     <template id="account_financial_report.report_general_ledger_lines">
         <div class="act_as_table data_table" style="width: 100%;">
@@ -150,8 +132,7 @@
                     <div class="act_as_cell" style="font-size:15px;color:Black;">Partner
                     </div>
                     <!--## ref - label-->
-                    <div class="act_as_cell" style="font-size:15px;">Ref -
-                        Label</div>
+                    <div class="act_as_cell" style="font-size:15px;">Ref - Label</div>
                     <t t-if="show_cost_center">
                         <!--## cost_center-->
                         <div class="act_as_cell" style="font-size:15px;">Cost

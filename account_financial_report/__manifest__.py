@@ -30,6 +30,7 @@
         'report/templates/layouts.xml',
         'report/templates/aged_partner_balance.xml',
         'report/templates/general_ledger.xml',
+        'report/templates/analytic_account.xml',
         'report/templates/journal_ledger.xml',
         'report/templates/open_items.xml',
         'report/templates/trial_balance.xml',
