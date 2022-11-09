@@ -33,7 +33,7 @@ class GeneralLedgerReportWizard(models.TransientModel):
         string='Date range'
     )
     date_from = fields.Date(required=True,
-                            default=lambda self: self.context_today())
+                            default=fields.Date.context_today)
     date_to = fields.Date(required=True,
                           default=fields.Date.context_today)
     fy_start_date = fields.Date(compute='_compute_fy_start_date')
