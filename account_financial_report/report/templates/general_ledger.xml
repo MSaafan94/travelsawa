@@ -29,6 +29,7 @@
             </div>
 
             <t t-foreach="o.account_ids" t-as="account">
+                 <t t-if="not account.code == '2130000'">
                 <div class="page_break">
                     <!-- Display account header -->
                     <div class="act_as_table list_table" />
@@ -75,6 +76,7 @@
                         <t t-set="type" t-value='"account_type"'/>
                     </t>
                 </div>
+                 </t>
             </t>
         </div>
     </template>
