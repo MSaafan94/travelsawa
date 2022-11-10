@@ -24,6 +24,9 @@
 <!--            <t t-call="account_financial_report.report_general_ledger_filterss"/>-->
 
             <t t-call="account_financial_report.report_general_ledger_filters"/>
+            <div class="page2">
+<!--                <span>-</span>-->
+            </div>
 
             <t t-foreach="o.account_ids" t-as="account">
                 <div class="page_break">

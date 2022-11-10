@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="analytic_account" inherit_id="report_general_ledger_base">
-        <xpath expr="//div[ hasclass('page_break')]" position="before">
-            <t t-if="o.filter_cost_center_ids">
+        <xpath expr="//div[hasclass('page2')]" position="before">
+<!--            <t t-if="o.filter_cost_center_ids">-->
 <!--                <t t-foreach="o.filter_cost_center_ids" t-as="analytic">-->
 <!--                    <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="analytic.name"/>-->
 <!--                </t>-->
 <!--                <div class="act_as_cell" style="font-size:15px; width:25%"> Account </div>-->
+            <br/>
                 <div class="act_as_table data_table" style="width: 100%;">
                     <div class="act_as_row labels left">
                         <div class="act_as_cell" style="font-size:15px; width:25%"> Account </div>
@@ -16,14 +17,16 @@
                     </div>
                 </div>
                 <t t-foreach="o.account_ids" t-as="account">
-                    <div class="act_as_table data_table" style="width: 100%;">
-                       <div class="act_as_row">
-                           <div class="act_as_cell" style="font-size:15px; width:25%;" > <span t-field="account.code"/> - <span t-field="account.name"/> </div>
-                            <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_debit"/>
-                            <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_credit"/>
-                            <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_balance"/>
-                       </div>
-                    </div>
+                    <t t-if="not account.code == '2130000'">
+                        <div class="act_as_table data_table" style="width: 100%;">
+                           <div class="act_as_row">
+                                <div class="act_as_cell" style="font-size:15px; width:25%;" > <span t-field="account.code"/> - <span t-field="account.name"/> </div>
+                                <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_debit"/>
+                                <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_credit"/>
+                                <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="account.final_balance"/>
+                           </div>
+                        </div>
+                    </t>
                 </t>
                 <div class="act_as_table data_table" style="width: 100%;">
                     <div class="act_as_row labels">
@@ -44,9 +47,9 @@
                         </div>
                     </div>
                 </t>
-                <div class="act_as_cell" style="font-size:15px; width:25%;"><span>-</span></div>
+                <br/>
 
-            </t>
+<!--            </t>-->
         </xpath>
     </template>
 </odoo>
