@@ -3,9 +3,9 @@
     <template id="analytic_account" inherit_id="report_general_ledger_base">
         <xpath expr="//div[ hasclass('page_break')]" position="before">
             <t t-if="o.filter_cost_center_ids">
-                <t t-foreach="o.filter_cost_center_ids" t-as="analytic">
-                    <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="analytic.name"/>
-                </t>
+<!--                <t t-foreach="o.filter_cost_center_ids" t-as="analytic">-->
+<!--                    <div class="act_as_cell" style="font-size:15px; width:25%;" t-field="analytic.name"/>-->
+<!--                </t>-->
 <!--                <div class="act_as_cell" style="font-size:15px; width:25%"> Account </div>-->
                 <div class="act_as_table data_table" style="width: 100%;">
                     <div class="act_as_row labels left">
