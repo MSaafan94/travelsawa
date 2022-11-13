@@ -1761,8 +1761,8 @@ WITH move_lines_on_tags AS
             'initial_debit': initial_debit,
             'initial_credit': initial_credit,
             'initial_balance': unaffected_earnings_initial_balance,
-            'final_debit':   unaffected_earnings_period_debit,
-            'final_credit':  unaffected_earnings_period_credit,
+            'final_debit': initial_debit + unaffected_earnings_period_debit,
+            'final_credit': initial_credit + unaffected_earnings_period_credit,
             'final_balance': final_balance,
         }
         self.env.cr.execute(query_inject_account,
