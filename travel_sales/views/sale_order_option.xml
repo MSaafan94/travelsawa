@@ -61,7 +61,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='order_lines']" position="inside">
 
-                    <button name="get_payments" string="Get payments" type="object" groups="sales_team.group_sale_manager"></button>
+                    <button name="get_payments" string="Get payments" type="object"></button>
 
                       <field name="payment_quotation" attrs="{'readonly':[('state','=','done')]}"   nolabel="1" groups="sales_team.group_sale_manager" >
                           <tree  create="false" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}">
@@ -124,6 +124,8 @@
                 <xpath expr="//button[@name='action_done']" position="after">
                     <button name="action_set_draft" type="object" string="Update Quotation" states="sale"/>
                     <button name="get_payment" type="object" string="Register Payment" class="oe_highlight"
+                            states="sale,done"/>
+                    <button name="get_refund" type="object" string="Refund" class="oe_highlight"
                             states="sale,done"/>
                 </xpath>
                 <xpath expr="//button[@name='action_view_invoice']" position="after">

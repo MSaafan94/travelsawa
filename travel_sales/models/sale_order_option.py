@@ -24,13 +24,6 @@ class AccountPayment(models.Model):
     journal_id = fields.Many2one('account.journal', required=False, track_visibility='always')
     trip_reference = fields.Char("Trip Reference", track_visibility='always')
 
-    # amount_to_text = fields.Char(compute='_get_text_amount')
-    #
-    # @api.depends('amount')
-    # def _get_text_amount(self):
-    #     for rec in self:
-    #         rec.amount_to_text = rec.currency_id.amount_to_text(rec.amount)
-
     @api.multi
     def post(self):
         res = super(AccountPayment, self).post()
@@ -81,13 +74,6 @@ class SaleOrder(models.Model):
     payment_quotation = fields.One2many('payments.payments', 'payment_quotation_id', )
     extra_money = fields.Float()
 
-    # @api.onchange('extra_money')
-    # def changeTotal(self):
-    #     self.total_payments += self.extra_money
-
-    # test = fields.Integer(related="payment_count", compute='get_payments')
-    # payment_type = fields.Selection(related="payment_type", compute='get_payments')
-
     @api.multi
     def action_confirm(self):
         for line in self.order_line:
@@ -100,7 +86,6 @@ class SaleOrder(models.Model):
 
     @api.depends('payment_count')
     def get_payments(self):
-        print(self.delivery_count)
         account_payment = [(5, 0, 0,)]
         payments = self.env['account.payment'].search([('state', 'in', ['posted', 'locked']), ('sale_id', '=', self.id),
                                                        ('partner_id', '=', self.partner_id.id)])
@@ -117,12 +102,7 @@ class SaleOrder(models.Model):
                     'state': line.state,
                 }))
             self.payment_quotation = account_payment
-
-            # return self.payment_quotation
-        # print(self.extra_money)
-        # print('-----------------')
         self.total_payments += self.extra_money
-        # print(self.total_payments)
         return self.payment_quotation
 
     def auto_cancel_sale_order(self):
@@ -135,22 +115,6 @@ class SaleOrder(models.Model):
         except:
             return "internal error"
 
-    # @api.multi
-    # def write(self, vals):
-    #     res = super(SaleOrder, self).write(vals)
-    #     for rec in self:
-    #         if any(line.product_uom_qty < line.available for line in rec.order_line):
-    #             raise UserError("Order Qty. is greater than available quantity !")
-    #     return res
-
-    # @api.constrains('order_line')
-    # def _check_order_line(self):
-    #     for rec in self:
-    #         if any(line.product_uom_qty < 0 for line in rec.order_line):
-    #             raise UserError("Order Qty. should not be Negative !")
-    #         if any(line.product_uom_qty > line.available for line in rec.order_line):
-    #             raise UserError("Order Qty. is greater than available quantity !")
-
     @api.one
     @api.depends('payment_quotation')
     def _compute_total_paid_amounts(self):
@@ -162,21 +126,6 @@ class SaleOrder(models.Model):
                 else:
                     self.total_payments += line.payment_amount
                     self.total_due = self.amount_total - self.total_payments
-
-        # for line in self.balance:
-        #     if line.add:
-        #         self.total_payments += line.amount
-        #         self.total_due = self.amount_total - self.total_payments
-
-    # @api.depends('amount_total')
-    # def _compute_total_paid_amounts(self):
-    #     for rec in self:
-    #         Payments = self.env['account.payment'].search([('state', '=', 'posted'), ('sale_id', '=', rec.id)])
-    #         total_payments = 0.0
-    #         for line in Payments:
-    #             total_payments += line.amount
-    #         rec.total_payments = total_payments
-    #         rec.total_due = rec.amount_total - rec.total_payments
 
     def _compute_payment_count(self):
         for payment in self:
@@ -220,25 +169,6 @@ class SaleOrder(models.Model):
         })
 
     def get_payment(self):
-        # self.ensure_one()
-        # context = {
-        #     'default_amount': self.amount_total,
-        #     'default_sale_id': self.id,
-        #     'default_destination_account_id': self.partner_id.property_account_payable_id.id,
-        #     'default_payment_type': 'inbound',
-        #     'default_partner_type': 'customer',
-        #     'default_partner_id': self.partner_id.id,
-        # }
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'res_model': 'account.payment',
-        #     'view_type': 'form',
-        #     'view_mode': 'form',
-        #     'views': [(False, 'form')],
-        #     'target': 'current',
-        #     'context': context
-        # }
-
         return {
             'type': 'ir.actions.act_window',
             'name': 'Warning : you must select Journal',
@@ -253,6 +183,33 @@ class SaleOrder(models.Model):
         for rec in self:
             values = {
                 'payment_type': 'inbound',
+                'partner_type': 'customer',
+                'partner_id': rec.partner_id.id,
+                'amount': amount,
+                'sale_id': rec.id,
+                'journal_id': journal_id,
+                'state': 'draft',
+                'trip_reference': rec.sale_order_template_id.name,
+                'user': self.env.user.id,
+                'payment_date': date,
+            }
+            self.env['account.payment'].sudo().create(values)
+
+    def get_refund(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Warning : you must select Journal',
+            'res_model': 'payment.wizard',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': self.env.ref('travel_sales.payment_wizard_view_form_refund', False).id,
+            'target': 'new',
+        }
+
+    def create_refund(self, journal_id, amount, date, ):
+        for rec in self:
+            values = {
+                'payment_type': 'outbound',
                 'partner_type': 'customer',
                 'partner_id': rec.partner_id.id,
                 'amount': amount,
@@ -283,7 +240,6 @@ class SaleOrderLine(models.Model):
     @api.depends('product_id', 'product_uom_qty')
     def _compute_available(self):
         for rec in self:
-
             if rec.product_id:
                 rec.available = 0
                 if rec.product_id:
@@ -311,10 +267,4 @@ class Payments(models.Model):
          ('sent', 'sent')])
     is_added = fields.Boolean(string='Add', track_visibility='always', default=True)
     payment_type = fields.Selection([('inbound', 'Inbound'), ("outbound", 'Outbound')])
-    # test = fields.Monetary()
 
-    # @api.multi
-    # @api.onchange('is_added')
-    # def calculate_total_paid(self):
-    #     if self.is_added:
-    #         self.payment_quotation_id.total_paymentt += self.payment_amount

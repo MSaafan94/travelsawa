@@ -20,6 +20,12 @@ class PaymentWizards(models.TransientModel):
         sale_id = self.env['sale.order'].browse(docs).id
         sale_id.create_payment(self.journal_id.id, self.amount, self.date,)
 
+    def confirm_refund(self):
+        model = self.env.context.get('active_model')
+        docs = self.env[model].browse(self.env.context.get('active_id'))
+        sale_id = self.env['sale.order'].browse(docs).id
+        sale_id.create_refund(self.journal_id.id, self.amount, self.date,)
+
 
 class SplitJournal(models.TransientModel):
     _name = 'split.journal'
