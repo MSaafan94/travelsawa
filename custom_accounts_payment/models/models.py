@@ -2,11 +2,11 @@
 from odoo import api, fields, models,_
 from odoo.exceptions import UserError
 
+
 class ResPartners(models.Model):
     _inherit = 'res.partner'
 
     custom_receivable_id = fields.Many2one('account.account')
-
 
 
 class AccountPayment(models.Model):
@@ -37,7 +37,7 @@ class AccountPayment(models.Model):
             partner = self.partner_id.with_context(force_company=self.company_id.id)
             if self.partner_type == 'customer':
                 if partner.custom_receivable_id:
-                    print('account',partner.custom_receivable_id)
+                    print('account', partner.custom_receivable_id)
                     self.destination_account_id = partner.custom_receivable_id.id
                 else:
                     self.destination_account_id = partner.property_account_receivable_id.id
@@ -45,7 +45,7 @@ class AccountPayment(models.Model):
                 self.destination_account_id = partner.property_account_payable_id.id
 
     def action_lock(self):
-        if self.payment_type == 'inbound':
+        if self.payment_type == 'inbound' and self.state == 'posted':
             aml_obj = self.env['account.move.line'].with_context(check_move_validity=False)
             debit, credit, amount_currency, currency_id = aml_obj.with_context(
                 date=self.payment_date)._compute_amount_fields(self.amount, self.currency_id, self.company_id.currency_id)
@@ -61,7 +61,7 @@ class AccountPayment(models.Model):
                         debit_account = partner.custom_receivable_id.id
                         credit_account = partner.property_account_receivable_id.id
                     else:
-                        raise UserError(_("You must first define a custom recivable account for that customer."))
+                        raise UserError(_("You must first define a custom receivable account for that customer."))
             line_vals = {
                 'account_id': credit_account,
                 'name': "customer payment",
@@ -71,11 +71,11 @@ class AccountPayment(models.Model):
                 'move_id': move.id,
             }
             aml_obj.create(line_vals)
-            line_vals ={
+            line_vals = {
                             'account_id': debit_account,
                             'name': self.name,
-                            'debit': round(self.amount,2),
-                            'credit':0.00,
+                            'debit': round(self.amount, 2),
+                            'credit': 0.00,
                             'partner_id': partner.id,
                             'move_id': move.id,
                         }
