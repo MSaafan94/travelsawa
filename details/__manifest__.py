@@ -35,7 +35,9 @@
         'views/templates.xml',
         'views/details.xml',
         'views/quot_temp.xml',
+        'views/invoice.xml',
         'security/security.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
