@@ -11,5 +11,5 @@ class SaleOrderInh(models.Model):
                     rec.state = 'sale'
                 else:
                     raise ValidationError('you don\' have authority.')
-   
+
 
