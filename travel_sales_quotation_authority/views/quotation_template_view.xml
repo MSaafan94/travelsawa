@@ -2,7 +2,6 @@
 <odoo>
     <data>
 
-
         <record id="sale_view_templete_list_inherit" model="ir.ui.view">
             <field name="name">sale.tree.new</field>
             <field name="model">sale.order.template</field>

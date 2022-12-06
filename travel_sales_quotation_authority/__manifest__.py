@@ -5,9 +5,8 @@
     'version': '12.0',
     'depends': ['base', 'crm', 'sale', 'sales_extra_fields', 'details'],
     'data': [
-        'security/quotation_templetes_groups.xml',
-        'views/quotation_templete_view.xml',
+        # 'security/quotation_templetes_groups.xml',
+        'views/quotation_template_view.xml',
         'views/from_expired_to_order_view.xml'
     ],
-
 }
