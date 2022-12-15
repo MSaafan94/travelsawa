@@ -11,41 +11,28 @@ from odoo.exceptions import UserError
 class PurchaseOrderCustom(models.Model):
 	_inherit = "purchase.order"
 	sale_order = fields.Many2one('sale.order', 'Sale Order')
-	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference',)
+	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference', store=True)
 
 	@api.one
 	@api.depends('origin')
 	def compute_trip_reference(self):
 		if self.origin:
 			res = self.env['sale.order'].search([('name', '=', self.origin)])
-			print(res.partner_id.name)
 			if res:
 				self.trip_reference = res.sale_order_template_id.id
-			print(self.trip_reference)
 
 
 class TripReferenceAccount(models.Model):
 	_inherit = "account.invoice"
-	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference',)
+	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference', store=True)
 
 	@api.one
 	@api.depends('origin')
 	def compute_trip_reference(self):
 		if self.origin:
 			res = self.env['purchase.order'].search([('name', '=', self.origin)])
-			print(res.partner_id.name)
 			if res:
 				self.trip_reference = res.trip_reference
-			print(self.trip_reference)
-
-	# @api.multi
-	# def action_view_invoice(self):
-	# 	res = super(PurchaseOrderCustom, self).action_view_invoice()
-	# 	# ['context']['default_reference'] = self.partner_ref
-	#
-	# 	return res
-
-
 
 
 class createpurchaseorder(models.TransientModel):
