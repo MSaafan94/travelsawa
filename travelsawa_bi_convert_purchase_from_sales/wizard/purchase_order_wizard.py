@@ -8,11 +8,51 @@ import odoo.addons.decimal_precision as dp
 from odoo.exceptions import UserError
 
 
+class PurchaseOrderCustom(models.Model):
+	_inherit = "purchase.order"
+	sale_order = fields.Many2one('sale.order', 'Sale Order')
+	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference',)
+
+	@api.one
+	@api.depends('origin')
+	def compute_trip_reference(self):
+		if self.origin:
+			res = self.env['sale.order'].search([('name', '=', self.origin)])
+			print(res.partner_id.name)
+			if res:
+				self.trip_reference = res.sale_order_template_id.id
+			print(self.trip_reference)
+
+
+class TripReferenceAccount(models.Model):
+	_inherit = "account.invoice"
+	trip_reference = fields.Many2one('sale.order.template', compute='compute_trip_reference',)
+
+	@api.one
+	@api.depends('origin')
+	def compute_trip_reference(self):
+		if self.origin:
+			res = self.env['purchase.order'].search([('name', '=', self.origin)])
+			print(res.partner_id.name)
+			if res:
+				self.trip_reference = res.trip_reference
+			print(self.trip_reference)
+
+	# @api.multi
+	# def action_view_invoice(self):
+	# 	res = super(PurchaseOrderCustom, self).action_view_invoice()
+	# 	# ['context']['default_reference'] = self.partner_ref
+	#
+	# 	return res
+
+
+
+
 class createpurchaseorder(models.TransientModel):
 	_name = 'create.purchaseorder'
 	_description = "Create Purchase Order"
 
-	new_order_line_ids = fields.One2many( 'getsale.orderdata', 'new_order_line_id',String="Order Line")
+	new_order_line_ids = fields.One2many('getsale.orderdata', 'new_order_line_id',String="Order Line")
 	partner_id = fields.Many2one('res.partner', string='Vendor', required = True)
 	date_order = fields.Datetime(string='Order Date', required=True, copy=False, default=fields.Datetime.now)
 
@@ -24,13 +64,13 @@ class createpurchaseorder(models.TransientModel):
 		update = []
 		for record in data.order_line:
 			update.append((0,0,{
-							'product_id' : record.product_id.id,
-							'product_uom' : record.product_uom.id,
+							'product_id': record.product_id.id,
+							'product_uom': record.product_uom.id,
 							'order_id': record.order_id.id,
-							'name' : record.name,
-							'product_qty' : record.product_uom_qty,
-							'price_unit' : record.price_unit,
-							'product_subtotal' : record.price_subtotal,
+							'name': record.name,
+							'product_qty': record.product_uom_qty,
+							'price_unit': record.price_unit,
+							'product_subtotal': record.price_subtotal,
 							}))
 		res.update({'new_order_line_ids':update})
 		return res
@@ -67,7 +107,9 @@ class createpurchaseorder(models.TransientModel):
 						'date_order' : str(self.date_order),
 						'order_line':value,
 						'origin' : sale_order_name,
-						'partner_ref' : sale_order_name						
+						# 'partner_ref' : sale_order_name,
+						'sale_order': data.order_id.id,
+						'trip_reference': data.order_id.sale_order_template_id.id,
 						
 					})
 		
