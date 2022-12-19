@@ -2,7 +2,7 @@
 {
     'name': "TravelSwa Sales",
 
-    'depends': ['base','sale_management','account','sales_extra_fields','sale_stock',],
+    'depends': ['base', 'sale_management', 'account', 'sales_extra_fields', 'sale_stock', 'purchase'],
 
 
     'data': [
