@@ -36,7 +36,8 @@ class SaleOrderTemplateOption(models.Model):
     @api.depends('stock', 'inventory')
     def _compute_available(self):
         for rec in self:
-            if not rec.is_room:
-                rec.available = rec.inventory - rec.stock
-            else:
-                rec.available = self.sale_order_template_id.available_rooms
+            rec.available = rec.inventory - rec.stock
+            # if not rec.is_room:
+            #     rec.available = rec.inventory - rec.stock
+            # else:
+            #     rec.available = self.sale_order_template_id.available_rooms
