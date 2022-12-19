@@ -81,7 +81,8 @@
                 <xpath expr="//field[@name='sale_order_template_option_ids']//tree/field[@name='discount']"
                        position="replace">
                     <field name="discount" invisible="1"/>
-                    <field name="template_name" invisible="1"/>
+                    <field name="template_name" invisible="0"/>
+<!--                    <field name="total"/>-->
                 </xpath>
                 <xpath expr="//field[@name='sale_order_template_option_ids']//tree/field[@name='product_id']"
                        position="before">
@@ -96,6 +97,7 @@
                 <xpath expr="//field[@name='sale_order_template_option_ids']//tree/field[@name='quantity']"
                        position="after">
                     <field name="inventory"/>
+                    <field name="is_room"/>
                     <field name="stock" string="Sold"/>
                     <field name="available"/>
                 </xpath>
@@ -125,4 +127,3 @@
         </record>
     </data>
 </odoo>
-

@@ -8,15 +8,6 @@
             <field name="arch" type="xml">
                     <xpath expr="//field[@name='state']" position="before">
                         <field name="sale_id" invisible="0"/>
-<!--                        <field name="payment_amount_change" sum="payment_amount_change"/>-->
-<!--                        <field name="date"/>-->
-<!--                        <field name="journal_entry">-->
-<!--                            <tree>-->
-<!--                                <field name="amount"/>-->
-<!--                                <field name="so"/>-->
-<!--                                <field name="partner"/>-->
-<!--                            </tree>-->
-<!--                        </field>-->
                     </xpath>
 
             </field>
@@ -72,42 +63,17 @@
                               <field name="payment_amount" widget="monetary"/>
                               <field name="state"/>
                               <field name="payment_type"/>
-
                               <field name="is_added" widget="toggle_button"/>
 <!--                              <button name="add" type="'abject" string="Add"></button>-->
                           </tree>
                       </field>
-                    <label for="extra_money" string="Customer Balance" groups="account.group_account_manager"/>
-                    <field name="extra_money" groups="account.group_account_manager"/>
-<!--                    <field name="test" invisible="0"/>-->
-<!--                    <field name="balance" attrs="{'readonly':[('state','=','done')]}"   nolabel="1" groups="sales_team.group_sale_manager">-->
-<!--                        <tree create="false" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}">-->
-<!--                            <field name="date"/>-->
-<!--                            <field name="number"/>-->
-<!--                            <field name="partner_id"/>-->
-<!--                            <field name="reference"/>-->
-<!--                            <field name="journal_id"/>-->
-<!--                            <field name="amount"  widget="monetary"/>-->
-<!--                            <field name="status"/>-->
-<!--                            <field name="add" widget="toggle_button"/>-->
-<!--                            <field name="linked_with" />-->
-<!--                        </tree>-->
-<!--                    </field>-->
-
-<!--                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">-->
-<!--                           <label for="total_paymentt"/>-->
-<!--                           <field name="total_paymentt" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"-->
-<!--                           options="{'currency_field': 'currency_id'}"/>-->
-<!--                        </div>-->
-
               </xpath>
 
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="before">
-<!--                    <field name="cost"/>-->
                     <field name="available"/>
-<!--                    <field name="name" string="name"/>-->
                     <field name="reserved" invisible="1"/>
-<!--                    <field name="selling"/>-->
+                    <field name="is_room" invisible="1"/>
+                    <field name="template_name" invisible="1"/>
                 </xpath>
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
                     <attribute name="invisible">1</attribute>
@@ -116,9 +82,7 @@
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <xpath expr="//field[@name='sale_order_option_ids']//field[@name='price_unit']" position="after">
-<!--                    <field name="hotel"/>-->
                     <field name="available"/>
-<!--                    <field name="sale_order_template_id"/>-->
                     <field name="transfer"/>
                 </xpath>
                 <xpath expr="//button[@name='action_done']" position="after">
@@ -164,7 +128,6 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='warehouse_id']" position="replace">
-                    <!-- Add your fields or attributes here -->
                 </xpath>
                 <xpath expr="//field[@name='sale_order_template_id']" position="after">
                     <field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"

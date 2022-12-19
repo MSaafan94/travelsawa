@@ -12,7 +12,7 @@ class CrmLead(models.Model):
     name = fields.Char(required=True)
     phone = fields.Char(required=True)
     service_type = fields.Many2one('service.type', "Service Type", required=True)
-    whatsapp_num = fields.Char("WhatsApp Number", required=True)
+    whatsapp_num = fields.Char("WhatsApp Number")
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
@@ -43,7 +43,7 @@ class CrmLead(models.Model):
             if self.whatsapp_num:
                 return {
                     "type": 'ir.actions.act_url',
-                    "url": 'https://web.whatsapp.com/send/?phone=+2{}'.format(self.whatsapp_num),
+                    "url": 'https://wa.me/+2{}'.format(self.whatsapp_num),
                     "target": 'new'
                 }
             else:
@@ -52,7 +52,7 @@ class CrmLead(models.Model):
             if self.whatsapp_num:
                 return {
                     "type": 'ir.actions.act_url',
-                    "url": 'https://web.whatsapp.com/send/?phone={}'.format(self.whatsapp_num),
+                    "url": 'https://wa.me/{}'.format(self.whatsapp_num),
                     "target": 'new'
                 }
             else:

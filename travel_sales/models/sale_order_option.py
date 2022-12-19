@@ -42,29 +42,6 @@ class AccountPayment(models.Model):
         return rslt
 
 
-class SaleOrderOption(models.Model):
-    _inherit = 'sale.order.option'
-
-    transfer = fields.Boolean("Transfer", default=False)
-    hotel = fields.Many2one('model.hotel', string="Hotel")
-    inventory = fields.Float(string="Inventory")
-    analytic_tag_id = fields.Many2one('account.analytic.tag', 'Analytic Tags')
-    available = fields.Float(string="Available", compute="_compute_availablee")
-
-    @api.one
-    @api.depends('product_id', 'quantity')
-    def _compute_availablee(self):
-        for rec in self:
-            if rec.product_id:
-                rec.available = 0
-                if rec.product_id:
-                    sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
-                        [('product_id', '=', rec.product_id.id),
-                         ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
-                    if sale_order_template_option_id:
-                        rec.available = sale_order_template_option_id.available
-
-
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -121,6 +98,7 @@ class SaleOrder(models.Model):
         for line in self.payment_quotation:
             if line.is_added:
                 if line.payment_type == 'outbound':
+                    self.total_payments -= line.payment_amount
                     self.total_payments -= line.payment_amount
                     self.total_due = self.amount_total - self.total_payments
                 else:
@@ -228,33 +206,10 @@ class SaleOrder(models.Model):
         return action
 
 
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    location_id = fields.Many2one('stock.location', "Location")
-    cost = fields.Float('Cost', related="product_id.standard_price", store=True, readonly=False)
-    available = fields.Float(string="Available", compute="_compute_available")
-    reserved = fields.Float()
-
-    @api.one
-    @api.depends('product_id', 'product_uom_qty')
-    def _compute_available(self):
-        for rec in self:
-            if rec.product_id:
-                rec.available = 0
-                if rec.product_id:
-                    sale_order_template_option_id = self.env['sale.order.template.option'].sudo().search(
-                        [('product_id', '=', rec.product_id.id),
-                         ('template_name', '=', self.order_id.sale_order_template_id.name)], limit=1)
-                    if sale_order_template_option_id:
-                        rec.available = sale_order_template_option_id.available
-
-
 class Payments(models.Model):
     _name = "payments.payments"
 
-    currency_id = fields.Many2one(
-        'res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency')
     customer = fields.Char()
     payment_date = fields.Date()
     name = fields.Char()
@@ -267,4 +222,3 @@ class Payments(models.Model):
          ('sent', 'sent')])
     is_added = fields.Boolean(string='Add', track_visibility='always', default=True)
     payment_type = fields.Selection([('inbound', 'Inbound'), ("outbound", 'Outbound')])
-

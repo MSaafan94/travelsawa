@@ -10,7 +10,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     service_type = fields.Many2one('service.type', "Service Type")
-    whatsapp_num = fields.Char("WhatsApp Number",required=True)
+    whatsapp_num = fields.Char("WhatsApp Number")
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
@@ -97,37 +97,35 @@ class ResPartner(models.Model):
             else:
                 raise ValidationError("Please Provide Contact number for {}".format(self.partner_id))
 
+    # @api.multi
+    # @api.onchange('whatsapp_num')
+    # def _check_whats(self):
+    #     logging.info("Change whatsapp_num++++")
+    #     partners = self.env['res.partner'].search([])
+    #     for partner in partners:
+    #         if self.whatsapp_num:
+    #             if self.whatsapp_num == partner.whatsapp_num or len(self.whatsapp_num) < 11:
+    #                 raise UserError("whatsapp_num number is already in used.")
 
-    @api.multi
-    @api.onchange('whatsapp_num')
-    def _check_whats(self):
-        logging.info("Change whatsapp_num++++")
-        partners = self.env['res.partner'].search([])
-        for partner in partners:
-            if self.whatsapp_num:
-                if self.whatsapp_num == partner.whatsapp_num or len(self.whatsapp_num) < 11:
-                    raise UserError("whatsapp_num number is already in used.")
+    # @api.multi
+    # @api.onchange('phone')
+    # def _check_phone(self):
+    #     logging.info("Chane phone++++++++++")
+    #     partners = self.env['res.partner'].search([])
+    #     for partner in partners:
+    #         if self.phone:
+    #             if self.phone == partner.phone:
+    #                 raise UserError("Phone number is already in used.")
 
-
-    @api.multi
-    @api.onchange('phone')
-    def _check_phone(self):
-        logging.info("Chane phone++++++++++")
-        partners = self.env['res.partner'].search([])
-        for partner in partners:
-            if self.phone:
-                if self.phone == partner.phone:
-                    raise UserError("Phone number is already in used.")
-
-    @api.multi
-    @api.onchange('mobile')
-    def _check_mobile(self):
-        logging.info("Change mobile++++++++++")
-        partners = self.env['res.partner'].search([])
-        for partner in partners:
-            if self.mobile:
-                if self.mobile == partner.mobile or len(self.mobile) < 11:
-                    raise UserError("Mobile number is already in used.")
+    # @api.multi
+    # @api.onchange('mobile')
+    # def _check_mobile(self):
+    #     logging.info("Change mobile++++++++++")
+    #     partners = self.env['res.partner'].search([])
+    #     for partner in partners:
+    #         if self.mobile:
+    #             if self.mobile == partner.mobile or len(self.mobile) < 11:
+    #                 raise UserError("Mobile number is already in used.")
 
     def get_transfer_wizard(self):
         ctx = self.env.context

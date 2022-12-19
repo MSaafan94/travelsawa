@@ -40,22 +40,21 @@ class SaleOrder(models.Model):
     res = fields.Many2one('res.partner', track_visibility='always')
     partner_age = fields.Selection(string='Age Type', related='partner_id.age_type', readonly=False, store=True)
 
-
     @api.one
     def generate(self):
         months = {
-            '1':'JAN',
-            '2':'FEB',
-            '3' :'MAR',
-            '4' :'APR',
-            '5' :'MAY',
-            '6' :'JUN',
-            '7' :'JUL',
-            '8' :'AUG',
-            '9' :'SEPT',
-            '10' :'OCT',
-            '11' :'NOV',
-            '12' :'DEC',
+            '1': 'JAN',
+            '2': 'FEB',
+            '3': 'MAR',
+            '4': 'APR',
+            '5': 'MAY',
+            '6': 'JUN',
+            '7': 'JUL',
+            '8': 'AUG',
+            '9': 'SEPT',
+            '10': 'OCT',
+            '11': 'NOV',
+            '12': 'DEC',
         }
         if self.analytic_account_id:
             raise UserError(_("Analytic account already has value"))
@@ -70,7 +69,7 @@ class SaleOrder(models.Model):
         if search_analytics:
             serial = search_analytics[len(search_analytics)-1].name.partition('/')[0]
             if serial:
-                if int(serial)<9 :
+                if int(serial) < 9:
                     # print(int(serial))
                     serial = '000{}'.format(int(serial)+1)
                     # print(serial)
@@ -94,7 +93,7 @@ class SaleOrder(models.Model):
 
 
     def get_partner(self):
-        print(self.partner_id.age_type)
+        # print(self.partner_id.age_type)
         self.partner_age = self.partner_id.age_type
 
     @api.one
@@ -105,7 +104,7 @@ class SaleOrder(models.Model):
 
     def purchase_action(self):
         action = self.env['ir.actions.act_window'].for_xml_id('purchase', 'purchase_rfq')
-        action['domain'] = [('origin', '=', self.name), ]
+        action['domain'] = [('origin', '=', self.name),]
         return action
 
     @api.multi
@@ -573,35 +572,3 @@ class AttachmentTag(models.Model):
     name = fields.Char("Category")
 
 
-class SaleOrderTemplateOption(models.Model):
-    _inherit = "sale.order.template.option"
-    _order = 'sequence'
-
-    sequence = fields.Integer('Sequence', help="Gives the sequence order when displaying a list of sale quote lines.",
-                              default=10)
-    hotel = fields.Many2one('model.hotel', string="Hotel")
-    inventory = fields.Float(string="Inventory", default=150)
-    stock = fields.Float(string="Stock", compute="_compute_stock")
-    available = fields.Float(string="Available", compute="_compute_available")
-    # nameOrder = fields.Char(default=' ')
-    analytic_tag_ids = fields.Many2one('account.analytic.tag', 'Analytic Tags')
-    template_name = fields.Char(related='sale_order_template_id.name')
-
-    @api.depends('product_id', 'inventory', 'stock')
-    def _compute_stock(self):
-        for rec in self:
-            rec.stock = 0
-            rec.available = 0
-            if rec.product_id:
-                # product_tmpl_id = rec.product_id.product_tmpl_id
-                # product_variant_ids = product_tmpl_id.with_prefetch().product_variant_ids
-                sale_order_domain = [('product_id', '=', rec.product_id.id), ('state', '!=', (['draft', 'waiting', 'expired']))]
-                sale_order_line_ids = self.env['sale.order.line'].sudo().search(sale_order_domain).filtered(
-                    lambda x: x.order_id.sale_order_template_id.id == rec.sale_order_template_id.id)
-                rec.stock = sum(sale_order_line_ids.mapped('product_uom_qty'))
-                rec.available = rec.inventory - sum(sale_order_line_ids.mapped('product_uom_qty'))
-
-    @api.depends('stock', 'inventory')
-    def _compute_available(self):
-        for rec in self:
-            rec.available = rec.inventory - rec.stock
