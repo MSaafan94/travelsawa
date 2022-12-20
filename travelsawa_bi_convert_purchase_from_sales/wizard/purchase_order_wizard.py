@@ -35,7 +35,7 @@ class TripReferenceAccount(models.Model):
 				self.trip_reference = res.trip_reference
 
 
-class createpurchaseorder(models.TransientModel):
+class CreatePurchaseOrder(models.TransientModel):
 	_name = 'create.purchaseorder'
 	_description = "Create Purchase Order"
 
@@ -46,7 +46,7 @@ class createpurchaseorder(models.TransientModel):
 	
 	@api.model
 	def default_get(self,  default_fields):
-		res = super(createpurchaseorder, self).default_get(default_fields)
+		res = super(CreatePurchaseOrder, self).default_get(default_fields)
 		data = self.env['sale.order'].browse(self._context.get('active_ids',[]))
 		update = []
 		for record in data.order_line:
@@ -78,7 +78,6 @@ class createpurchaseorder(models.TransientModel):
 			
 			else:
 			 	final_price = data.product_id.standard_price
-			 	
 			value.append([0,0,{
 								'product_id' : data.product_id.id,
 								'name' : data.name,
@@ -94,8 +93,8 @@ class createpurchaseorder(models.TransientModel):
 						'date_order' : str(self.date_order),
 						'order_line':value,
 						'origin' : sale_order_name,
-						# 'partner_ref' : sale_order_name,
-						'sale_order': data.order_id.id,
+						'partner_ref': sale_order_name,
+						# 'sale_order': data.order_id.id,
 						'trip_reference': data.order_id.sale_order_template_id.id,
 						
 					})
