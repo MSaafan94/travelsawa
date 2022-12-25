@@ -45,7 +45,7 @@ class account_payment(models.Model):
 
     @api.multi
     def post(self, invoice=False):
-        if not self.env.user.has_group('account.group_account_manager') and self.payment_type == 'inbound' or self.partner_type == 'customer':
+        if not self.env.user.has_group('account.group_account_manager') and self.payment_type == 'inbound' and self.partner_type == 'customer':
             raise UserError(_('please head to the accounting team to confirm it for you'))
         super(account_payment, self).post()
 
