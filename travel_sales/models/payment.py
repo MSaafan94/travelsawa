@@ -16,6 +16,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.addons import decimal_precision as dp
 from lxml import etree
 
+
 class account_payment(models.Model):
     _inherit = "account.payment"
 
@@ -44,7 +45,7 @@ class account_payment(models.Model):
 
     @api.multi
     def post(self, invoice=False):
-        if not self.env.user.has_group('account.group_account_manager') and self.payment_type == 'inbound':
+        if not self.env.user.has_group('account.group_account_manager') and self.payment_type == 'inbound' or self.partner_type == 'customer':
             raise UserError(_('please head to the accounting team to confirm it for you'))
         super(account_payment, self).post()
 

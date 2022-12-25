@@ -79,7 +79,7 @@ class SaleOrder(models.Model):
                     'state': line.state,
                 }))
             self.payment_quotation = account_payment
-        self.total_payments += self.extra_money
+        # self.total_payments += self.extra_money
         return self.payment_quotation
 
     def auto_cancel_sale_order(self):
@@ -99,7 +99,7 @@ class SaleOrder(models.Model):
             if line.is_added:
                 if line.payment_type == 'outbound':
                     self.total_payments -= line.payment_amount
-                    self.total_payments -= line.payment_amount
+                    # self.total_payments -= line.payment_amount
                     self.total_due = self.amount_total - self.total_payments
                 else:
                     self.total_payments += line.payment_amount

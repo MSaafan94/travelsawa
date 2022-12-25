@@ -72,7 +72,7 @@
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="before">
                     <field name="available"/>
                     <field name="reserved" invisible="1"/>
-                    <field name="is_room" invisible="1"/>
+                    <field name="is_room" invisible="0"/>
                     <field name="template_name" invisible="1"/>
                 </xpath>
                 <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">

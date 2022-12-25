@@ -24,15 +24,12 @@ class SaleOrderTemplateCust(models.Model):
     available_rooms = fields.Float(compute="_compute_available")
 
     @api.one
-    # @api.depends('product_id', 'quantity')
     def _compute_stock(self):
-        sale_order_domain = [('template_name', '=', self.name), ('is_room', '=', True), ('state', 'not in', (['draft', 'waiting', 'sent', 'expired']))]
-        sale_order_line_ids = self.env['sale.order.line'].sudo().search(sale_order_domain)
-
-        self.stock_rooms = sum(sale_order_line_ids.mapped('product_uom_qty'))
-        print(self.stock_rooms)
-        # if sale_order_template_option_id:
-        #     self.stock_rooms = sale_order_template_option_id.stock
+        sale_order_domain = [('template_name', '=', self.name), ('state', 'not in', (['draft', 'waiting', 'sent', 'expired']))]
+        sale_order_line_ids = self.env['sale.order.line'].sudo().search(sale_order_domain).filtered(lambda x: x.is_room == True)
+        if sale_order_line_ids:
+            for x in range(len(sale_order_line_ids)):
+                self.stock_rooms += sale_order_line_ids[x].product_uom_qty
 
     @api.one
     def _compute_available(self):
@@ -75,9 +72,10 @@ class SaleOrderLine(models.Model):
     cost = fields.Float('Cost', related="product_id.standard_price", store=True, readonly=False)
     available = fields.Float(string="Available", compute="_compute_available")
     reserved = fields.Float()
-    is_room = fields.Boolean(compute='compute_is_room')
+    is_room = fields.Boolean(compute='compute_is_room',)
     template_name = fields.Char(related='order_id.sale_order_template_id.name')
 
+    # @api.depends('cost')
     @api.one
     def compute_is_room(self):
         self.is_room = self.product_id.is_room
