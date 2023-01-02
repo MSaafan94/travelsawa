@@ -45,13 +45,11 @@ class SaleOrderr(models.Model):
     child_inv = fields.Integer(string='Child', track_visibility='always')
     adult_inv = fields.Integer(string='Adult', track_visibility='always')
 
-    # total_paymentt = fields.Monetary(compute='calculate_total_paid')
-    # total_payments = fields.Monetary(compute='calculate_total_paid', string="Total Paid")
-
     @api.multi
     def unlink(self):
-        if not self.env.user.has_group('sales_extra_fields.group_manager_quotation_template'):
+        if not self.env.user.has_group('details.group_sale_super_manager'):
             raise ValidationError("Sorry you can not delete")
+        super(SaleOrderr, self).unlink()
 
     @api.onchange('starttime', 'endtime')
     def change_checkin_and_out(self):
@@ -118,17 +116,18 @@ class SaleOrderr(models.Model):
         self.sale_order_program_inv = sales_details
         self.sale_order_transfer_inv = sales_details
 
+
 class Balances(models.Model):
     _name = 'balance.balance'
     currency_id = fields.Many2one('res.currency', string='Currency', track_visibility='always')
-    date = fields.Date( track_visibility='always')
-    number = fields.Char( track_visibility='always')
+    date = fields.Date(track_visibility='always')
+    number = fields.Char(track_visibility='always')
     partner_id = fields.Many2one('res.partner', string='Partner', track_visibility='always')
-    reference = fields.Char( track_visibility='always')
+    reference = fields.Char(track_visibility='always')
     journal_id = fields.Many2one('account.journal', track_visibility='always')
-    amount = fields.Monetary( track_visibility='always')
+    amount = fields.Monetary(track_visibility='always')
     status = fields.Selection([('draft', 'Unposted'), ('posted', 'Posted')], track_visibility='always')
-    add = fields.Boolean( track_visibility='always')
+    add = fields.Boolean(track_visibility='always')
     balance_id = fields.Many2one('sale.order', track_visibility='always')
     linked_with = fields.Char(readonly=True, track_visibility='always')
 
@@ -177,6 +176,7 @@ class SaleOrderAccommodation(models.Model):
                                   ('beach_villa_with_private_pool', 'Beach Villa with Private Pool'), ],
                                  string='Room Type(S)', store=True)
     room_view = fields.Many2one('room.view', string="Room View(S)")
+    city_home = fields.Many2one('city.home', string="Hometown")
     room_special_request = fields.Many2many('room.special', string='Room Special Request(S)')
     meal_plan = fields.Many2one('meal.plan', index=True, string='Meal Plan(S)')
     notes = fields.Char(string='Notes')
@@ -1079,6 +1079,11 @@ class ProgramCity(models.Model):
 class PcrRequired(models.Model):
     _name = 'pcr.required'
     name = fields.Char(string="PCR Required")
+
+
+class CityHome(models.Model):
+    _name = 'city.home'
+    name = fields.Char(string="City Home")
 
 
 

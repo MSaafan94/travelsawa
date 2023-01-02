@@ -45,3 +45,4 @@ access_model_balance_requireddddddd,access.balanceeeeeee,model_sale_order_transf
 access_model_balance_requiredddddddd,access.balanceeeeeeee,model_sale_order_program_inv,,1,1,1,1
 
 #access_model_city_city,access.city.city,model_program_city,,1,1,1,1
+access_model_city_city,access.city.city,model_city_home,,1,1,1,1

@@ -49,6 +49,8 @@
                                         <field name="partner_id" invisible="1"/>
                                         <field name="sequence" widget="handle"/>
                                         <field name="name" />
+                                        <field name="city_home"/>
+
 <!--                                        <field name="individual" invisible="1"/>-->
                                         <field name="gender" />
                                         <field name="age_type"/>
